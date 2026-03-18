@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Math of Early Retirement</title>
+    <title>The Math of Freedom</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
@@ -101,7 +101,7 @@
         
         <!-- Header -->
         <div class="bg-slate-900 text-white pt-1.5 pb-1 px-3 text-center flex-shrink-0 flex justify-between items-center border-b-2 border-emerald-500">
-            <h1 id="ui-title" class="text-[12px] md:text-xl font-black tracking-tight">The Math of Early Retirement</h1>
+            <h1 id="ui-title" class="text-[12px] md:text-xl font-black tracking-tight">The Math of </h1>
             
             <div class="flex items-center space-x-2 md:space-x-4 text-[9px] md:text-[11px] font-bold">
                 <button id="langToggle" class="bg-slate-700 hover:bg-slate-600 text-white px-2 py-0.5 rounded transition-colors shadow-sm border border-slate-600">中</button>
@@ -273,7 +273,7 @@
         // --- i18n Engine ---
         const i18n = {
             en: {
-                title: "The Math of Early Retirement", madeBy: "Email Eush",
+                title: "The Math of ", madeBy: "Email Eush",
                 lblCf: "Monthly Cash Flow", lblIn: "Income:", lblOut: "Expenses:", lblSr: "Sav. Rate %:",
                 lblStash: "Total Stash", lblCash: "Cash:", lblPort: "Investments:", lblTotal: "Total:",
                 lblReturn: "Market Return", lblDeadline: "Deadline", lblSwr: "SWR:",
@@ -546,7 +546,7 @@
                 ? "Reply entirely in witty, sarcastic internet-slang Chinese." 
                 : "Reply in English.";
 
-            const prompt = `Act as a witty, slightly cynical, but financially astute early retirement (FIRE) advisor. 
+            const prompt = `Act as a witty, slightly cynical, but financially astute  (FIRE) advisor. 
             Here are my numbers:
             - Monthly Income: $${income}
             - Monthly Expenses: $${expenses}
@@ -557,7 +557,7 @@
             - Target Retirement Deadline: ${target} years
             - Safe Withdrawal Rate (SWR): ${swr}%
             
-            Roast my early retirement plan. Point out if my return expectations are delusional, if I'm spending too much, or give reluctant praise if I'm a spreadsheet god. Keep it to 3 punchy, entertaining sentences. ${langInstruction}`;
+            Roast my  plan. Point out if my return expectations are delusional, if I'm spending too much, or give reluctant praise if I'm a spreadsheet god. Keep it to 3 punchy, entertaining sentences. ${langInstruction}`;
 
             const response = await fetchGeminiRoast(prompt);
             
