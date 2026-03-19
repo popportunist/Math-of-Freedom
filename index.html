@@ -331,12 +331,13 @@
             setTimeout(() => t.classList.add('translate-y-[250%]'), 3500);
         }
 
-        // --- Asset Data Matrix (Neutral, Merit-Based Tier System with Layman Moats) ---
+        // --- Asset Data Matrix (Neutral, Merit-Based Tier System with Layman Moats & Doomsday Scenarios) ---
         const convictions = [
             { 
                 t: "SSSR", a: "Alphabet", ticker: "GOOGL",
                 d: "The Three-Headed Cash Machine: 1. Search prints money from consumer intent. 2. YouTube is the undisputed TV of the new generation. 3. Cloud infrastructure powers the modern internet.", 
                 lm: "Imagine trying to convince the whole world to stop using the word 'Google' as a verb. It is the default starting point of the internet. You can't just build a new search engine and expect people to easily change their muscle memory.",
+                x: "The internet effectively breaks. You can't search, Maps stop working, millions of small businesses vanish from local visibility overnight, and an entire generation loses their primary entertainment and educational platform (YouTube).",
                 m: "Generates staggering cash flow. Warren Buffett's Berkshire Hathaway recently buying in validates its AI infrastructure leadership. It remains incredibly cheap compared to other tech giants.", 
                 k: "The US Government wants to break them up for being too powerful. AI search engines (like ChatGPT) might slowly steal people away from traditional searching." 
             },
@@ -344,6 +345,7 @@
                 t: "SSSR", a: "Amazon", ticker: "AMZN",
                 d: "The global leader in cloud computing (AWS) and the king of e-commerce delivery logistics.", 
                 lm: "They spent 20 years and billions of dollars building physical warehouses everywhere so you can get your items in 12 hours. No startup on earth has the money to replicate that massive physical delivery network.",
+                x: "Half the internet goes dark. Netflix, Disney+, and millions of websites crash immediately because AWS powers them. Plus, the global supply chain for everyday household goods grinds to a halt.",
                 m: "Their cloud business margins are expanding. More importantly, their massive investments in delivery vans and warehouses are finally becoming hyper-efficient, turning shopping into a true profit engine.", 
                 k: "They have to spend a terrifying amount of money on AI data centers. If interest rates spike globally, their valuation takes a heavy hit." 
             },
@@ -352,6 +354,7 @@
                 t: "SSR", a: "Tencent", ticker: "0700.HK",
                 d: "China’s dominant social media, gaming, and fintech ecosystem.", 
                 lm: "It's the digital oxygen of China. You literally cannot order a coffee, pay a bill, or message your boss without WeChat. People don't just stop using oxygen.",
+                x: "Chinese society hits pause. You wouldn't be able to pay for groceries, unlock a shared bike, message your family, or present your digital ID. It would be equivalent to turning off the electricity in a modern city.",
                 m: "Even if they stop buying back their own stock, WeChat remains an unassailable tollbooth. It acts as an inescapable tax on Chinese digital life, generating immense and sticky cash flow.", 
                 k: "The Chinese government strictly limits how much money they can squeeze from young gamers. A slow domestic economy hurts their advertising revenue." 
             },
@@ -359,6 +362,7 @@
                 t: "SSR", a: "Booking", ticker: "BKNG",
                 d: "The world's dominant travel platform (owns Booking.com & Agoda).", 
                 lm: "Hotels hate paying their fees, but they have to because all the tourists use the app. Tourists use the app because all the hotels are on it. It's a perfect Catch-22 money printer.",
+                x: "The global tourism industry panics. Thousands of independent hotels instantly lose 80% of their customer bookings, and travelers globally lose the ability to easily compare and book holidays.",
                 m: "They have completely cornered the European travel market. They generate massive cash, don't have to own physical hotels (asset-light), and constantly use that cash to buy back their own stock.", 
                 k: "Google is starting to steal travel searches before people even reach Booking.com. If a global recession hits, travel is the first thing consumers cut." 
             },
@@ -367,6 +371,7 @@
                 t: "S", a: "DBS Group", ticker: "D05.SI",
                 d: "Southeast Asia’s dominant banking powerhouse and top wealth manager.", 
                 lm: "Almost every salaryman in Singapore has their paycheck automatically deposited here. DBS gets our money for basically 0% interest and lends it out for mortgages at 4%+. It's a license to print money.",
+                x: "The Singaporean economy faces a heart attack. Millions of locals wouldn't get their paychecks, thousands of home mortgages would be in limbo, and everyday street transactions (via PayLah!) would freeze.",
                 m: "Unmatched deposit base yielding a highly sustainable 5-6% dividend. They boast a record Return on Equity (~18%) with a fortress-like balance sheet providing extreme safety in bad times.", 
                 k: "If the US Federal Reserve cuts interest rates aggressively, bank profit margins shrink. Highly exposed to any severe economic slowdown in Asia." 
             },
@@ -374,6 +379,7 @@
                 t: "S", a: "BYD", ticker: "1211.HK",
                 d: "The undisputed global leader in Electric Vehicles (EVs) and advanced battery tech.", 
                 lm: "They literally make everything inside the car themselves, right down to the battery and the computer chips. Because they don't buy from middlemen, their costs are so low it terrifies Western car makers.",
+                x: "The global transition to affordable electric vehicles stalls by a decade. Millions of drivers lose access to the only EVs priced for the middle class, and the battery supply chain shatters.",
                 m: "Total vertical integration gives them profit margins competitors cannot touch. They are successfully and aggressively expanding out of China into Southeast Asia and Europe.", 
                 k: "The US and Europe are slapping massive taxes (tariffs) on them to protect their own car makers. Meanwhile, a brutal price war inside China is crushing profit margins across the board." 
             },
@@ -382,6 +388,7 @@
                 t: "A", a: "Alibaba", ticker: "9988.HK",
                 d: "The foundational infrastructure of Chinese e-commerce and cloud computing.", 
                 lm: "They own the deepest plumbing of Chinese online shopping. Even with fierce new rivals popping up, forcing thousands of merchants to rip out and replace their underlying business plumbing is a nightmare.",
+                x: "China's retail backbone collapses. Millions of merchants lose their primary storefronts, the massive logistics network (Cainiao) stops delivering packages, and countless enterprise cloud systems crash.",
                 m: "It is trading incredibly cheap based on the massive cash it generates. Management is aggressively returning that cash to shareholders (a ~7-8% yield via buybacks and dividends).", 
                 k: "They are undeniably losing market share to hungrier rivals like PDD (Temu) and Douyin. Western investors remain terrified of Chinese political risks." 
             },
@@ -389,6 +396,7 @@
                 t: "A", a: "Adobe", ticker: "ADBE",
                 d: "The essential software monopoly for creative professionals (Photoshop, Illustrator).", 
                 lm: "Every professional designer has spent 10,000 hours mastering Photoshop shortcuts. Forcing an ad agency to switch to new software is like forcing an English speaker to suddenly work in Russian.",
+                x: "The global creative industry stops working. Marketing agencies, film studios, and designers wouldn't be able to open, edit, or create their digital files. Contracts worldwide halt without PDFs.",
                 m: "They make 90% profit margins because once a company subscribes, they never leave. Currently trading at deep historical discounts because the market is irrationally scared of AI replacing designers.", 
                 k: "AI video generators (like OpenAI's Sora) could bypass traditional video editing. Cheap, simple tools like Canva are stealing the low-end amateur market." 
             },
@@ -396,6 +404,7 @@
                 t: "A", a: "Prosus", ticker: "PRX.AS",
                 d: "A global tech investor whose main asset is a massive 25%+ stake in Tencent.", 
                 lm: "It's a legal loophole. Imagine being able to buy a $100 bill for $70, simply because the $100 bill is locked inside a slightly annoying European puzzle box.",
+                x: "As a holding company, the direct everyday impact is minimal. However, European tech funding would lose its biggest backer, severely hurting local startup and innovation ecosystems.",
                 m: "Allows you to buy Tencent at a huge ~30% discount. The company is continuously selling Tencent shares to buy back its own stock, which mathematically forces that discount to close over time.", 
                 k: "The market might never fully respect the puzzle box, meaning the discount could be permanent. Being based in the Netherlands exposes them to complex tax laws." 
             },
@@ -404,6 +413,7 @@
                 t: "B", a: "Hyperliquid Eco", ticker: "HYPE / PURR",
                 d: "A blazing-fast cryptocurrency trading exchange built on its own blockchain.", 
                 lm: "They built a crypto casino that executes trades as fast as Wall Street. Once high-rollers get used to that lightning speed, they don't go back to clunky, slow platforms.",
+                x: "The cutting-edge of decentralized finance takes a massive step backward. Billions of dollars in daily trading volume would be forced back onto slower, trust-based centralized exchanges.",
                 m: "Unlike most useless crypto coins, this generates massive, real cash flow from trading fees ($10B+ daily volume). The PURR token allows normal investors to profit from it without dealing with complex crypto wallets.", 
                 k: "Crypto is wildly volatile. Governments haven't figured out how to regulate it yet, and smart-contract hacks are an ever-present existential risk." 
             },
@@ -411,6 +421,7 @@
                 t: "B", a: "StoneCo", ticker: "STNE",
                 d: "A high-growth financial tech company servicing small shops in Brazil.", 
                 lm: "They hand out payment terminals to local Brazilian shops and bundle it with accounting software. Once the shopkeeper learns the system, they are too busy running their shop to ever bother switching.",
+                x: "Countless small mom-and-pop shops across Brazil suddenly can't accept credit cards or manage their daily cash flow, severely crippling the local street economy.",
                 m: "Earnings are growing at 30%+ but the stock is trading at bargain-bin prices. They are absolutely dominating the small business market in Latin America.", 
                 k: "Brazil's economy is historically unstable. If the Brazilian currency (BRL) crashes, their profits evaporate when converted back to USD." 
             },
@@ -419,6 +430,7 @@
                 t: "C", a: "China Sunsine", ticker: "CGXC",
                 d: "The world's largest producer of the chemicals needed to make rubber tires durable.", 
                 lm: "They make boring, essential chemicals. They are so big and efficient that no new competitor wants to spend millions building a toxic, highly-regulated chemical plant just to compete for pennies.",
+                x: "Global tire production faces a severe bottleneck. Without their specific chemicals, tires become less durable and safe, impacting everything from daily commutes to global trucking.",
                 m: "A classic 'Deep Value' play. The company holds more cash in the bank than the entire stock market says the company is worth, yet they are highly profitable and dominate market share.", 
                 k: "If people stop buying cars globally, tire production halts, and their profits tank. A classic 'value trap' risk with no immediate reason for the stock price to jump." 
             },
@@ -427,6 +439,7 @@
                 t: "D", a: "Chagee", ticker: "CHA",
                 d: "A trendy, modern Chinese premium tea chain expanding rapidly.", 
                 lm: "It's currently very trendy, but ultimately it's just tea. There is zero structural barrier stopping a customer from walking next door to Heytea if they are offering a 1-for-1 discount.",
+                x: "People simply walk next door and buy a slightly different cup of milk tea. Society moves on instantly. (This perfectly illustrates why it has a D-Tier moat).",
                 m: "Exceptional profit per store and rapid brand loyalty. They are successfully capturing the 'Starbucks of Tea' narrative among young premium consumers.", 
                 k: "Zero barrier to entry for competitors and zero switching costs for consumers. The Food & Beverage market is incredibly faddish, and Chinese tea brands are engaged in a brutal, margin-destroying price war." 
             }
@@ -569,6 +582,12 @@
                                             <span class="text-[10px] font-black uppercase text-indigo-600 tracking-wider">The Unfair Advantage</span>
                                         </div>
                                         <p class="text-slate-700 text-xs italic leading-relaxed">"${c.lm}"</p>
+                                        
+                                        <!-- Doomsday Scenario Embedded inside the Moat block -->
+                                        <div class="bg-slate-800 p-2.5 rounded-lg border-l-2 border-slate-600 mt-2.5 relative z-10 shadow-inner">
+                                            <span class="text-[9px] font-black uppercase text-slate-300 block mb-0.5 tracking-wider">💥 If They Disappear:</span>
+                                            <p class="text-slate-400 text-[11px] leading-relaxed">"${c.x}"</p>
+                                        </div>
                                     </div>
 
                                     <!-- Merit -->
