@@ -82,18 +82,6 @@
         .animate-fail { animation: pulse-ring-fail 2s infinite; }
         .pop-text { transform: scale(1.15); color: #e11d48; transition: all 0.2s ease-out; }
 
-        /* Roast Modal Spinner */
-        .roast-spinner {
-            border: 3px solid rgba(251, 191, 36, 0.3);
-            border-radius: 50%;
-            border-top: 3px solid #f59e0b;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 12px auto;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         /* Tier Visual Weight Animations */
         @keyframes gold-shimmer {
             0% { background-position: -200% center; }
@@ -131,12 +119,15 @@
             
             <div class="flex items-center space-x-2 md:space-x-4 text-[9px] md:text-[11px] font-bold">
                 <button id="langToggle" class="bg-slate-700 hover:bg-slate-600 text-white px-2 py-0.5 rounded transition-colors shadow-sm border border-slate-600">中</button>
-                <div class="flex items-center space-x-2 md:space-x-3">
+                <div class="flex items-center space-x-3 md:space-x-4">
                     <button onclick="showYtToast()" class="opacity-80 text-rose-400 hover:text-rose-300 transition-colors flex items-center gap-1 focus:outline-none">
                         <svg class="w-3 h-3 md:w-3.5 md:h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                         <span class="hidden md:inline">YouTube</span>
                     </button>
-                    <a href="mailto:popportunist@gmail.com" id="ui-madeby" class="opacity-80 text-emerald-400 hover:text-emerald-300 underline transition-colors whitespace-nowrap">Email Eush</a>
+                    <a href="mailto:popportunist@gmail.com" class="opacity-80 text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 focus:outline-none">
+                        <svg class="w-3 h-3 md:w-3.5 md:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span id="ui-madeby" class="hidden md:inline whitespace-nowrap">Email</span>
+                    </a>
                 </div>
                 <span class="opacity-40">|</span>
                 <div class="flex items-center space-x-1 md:space-x-1.5 opacity-60 hover:opacity-100 transition-opacity">
@@ -160,7 +151,7 @@
                         <div class="flex justify-between items-center mt-0.5 w-full">
                             <span id="ui-lbl-in" class="text-[8px] md:text-[9px] font-bold text-sky-500 uppercase flex-shrink-0">Income:</span>
                             <div class="flex items-center justify-end text-sky-600">
-                                <span class="text-[11px] md:text-sm font-black mr-0.5">SGD</span>
+                                <span class="text-[11px] md:text-sm font-black mr-0.5">$</span>
                                 <input type="text" inputmode="numeric" id="numIncome" value="10,000" class="editable-num w-12 md:w-16 text-right text-[11px] md:text-sm font-black">
                             </div>
                         </div>
@@ -169,7 +160,7 @@
                         <div class="flex justify-between items-center w-full">
                             <span id="ui-lbl-out" class="text-[8px] md:text-[9px] font-bold text-amber-500 uppercase flex-shrink-0">Expenses:</span>
                             <div class="flex items-center justify-end text-amber-600">
-                                <span class="text-[11px] md:text-sm font-black mr-0.5">SGD</span>
+                                <span class="text-[11px] md:text-sm font-black mr-0.5">$</span>
                                 <input type="text" inputmode="numeric" id="numExpense" value="4,000" class="editable-num w-12 md:w-16 text-right text-[11px] md:text-sm font-black">
                             </div>
                         </div>
@@ -189,7 +180,7 @@
                         <div class="flex justify-between items-center mt-0.5 w-full">
                             <span id="ui-lbl-cash" class="text-[8px] md:text-[9px] font-bold text-indigo-400 uppercase flex-shrink-0">Cash:</span>
                             <div class="flex items-center justify-end text-indigo-500">
-                                <span class="text-[11px] md:text-sm font-black mr-0.5">SGD</span>
+                                <span class="text-[11px] md:text-sm font-black mr-0.5">$</span>
                                 <input type="text" inputmode="numeric" id="numCash" value="0" class="editable-num w-12 md:w-16 text-right text-[11px] md:text-sm font-black">
                             </div>
                         </div>
@@ -198,7 +189,7 @@
                         <div class="flex justify-between items-center w-full">
                             <span id="ui-lbl-port" class="text-[8px] md:text-[9px] font-bold text-purple-500 uppercase flex-shrink-0">Investments:</span>
                             <div class="flex items-center justify-end text-purple-600">
-                                <span class="text-[11px] md:text-sm font-black mr-0.5">SGD</span>
+                                <span class="text-[11px] md:text-sm font-black mr-0.5">$</span>
                                 <input type="text" inputmode="numeric" id="numPortfolio" value="0" class="editable-num w-12 md:w-16 text-right text-[11px] md:text-sm font-black">
                             </div>
                         </div>
@@ -241,29 +232,31 @@
             </div>
 
             <!-- Summary Dashboard -->
-            <div id="summaryDashboard" class="p-2 md:p-3 flex flex-row items-center justify-between border-b shadow-md transition-colors duration-300 flex-shrink-0 relative overflow-hidden">
-                <div class="text-left flex-1 pr-1 z-10">
-                    <p id="ui-proj-lbl" class="text-[10px] md:text-[13px] font-medium leading-tight text-slate-700 mb-0.5">
-                        <span id="ui-t-inv">Investing</span> <span id="sumSavingsCurrency" class="font-black text-sky-700">SGD 6,000/mo</span> <span class="opacity-70">(<span id="sumSavingsPct">60</span>%)</span> <span id="ui-t-at">at</span> <span id="sumReturn" class="font-black text-rose-600">10%</span> <span id="ui-t-ret">returns</span><span id="sumStashText" class="hidden"><span id="ui-t-with"> (with </span><span id="sumStashYears" class="font-bold text-purple-600">0 yrs</span><span id="ui-t-saved"> saved)</span></span>,
+            <div id="summaryDashboard" class="p-3 md:p-4 flex flex-row items-center justify-between border-b shadow-md transition-colors duration-300 flex-shrink-0 relative overflow-hidden">
+                <div class="text-left flex-1 pr-1 z-10 flex flex-col justify-center">
+                    <p id="ui-proj-lbl" class="text-[10px] md:text-[13px] font-medium leading-tight text-slate-700 mb-2">
+                        <span id="ui-t-inv">Investing</span> <span id="sumSavingsCurrency" class="font-black text-sky-700">$6,000/mo</span> <span class="opacity-70">(<span id="sumSavingsPct">60</span>%)</span> <span id="ui-t-at">at</span> <span id="sumReturn" class="font-black text-rose-600">10%</span> <span id="ui-t-ret">returns</span><span id="sumStashText" class="hidden"><span id="ui-t-with"> (with </span><span id="sumStashYears" class="font-bold text-purple-600">0 yrs</span><span id="ui-t-saved"> saved)</span></span>,
                     </p>
-                    <p id="ui-fi-line" class="text-[11px] md:text-[15px] text-slate-800 leading-tight">
+                    
+                    <!-- HIGH VISUAL WEIGHT TARGET PILL -->
+                    <div class="flex items-center gap-2 md:gap-3 my-1.5 md:my-2 inline-flex bg-gradient-to-r from-emerald-100 to-teal-50 border-2 border-emerald-400 px-3 md:px-5 py-1.5 md:py-2 rounded-xl shadow-md ring-4 ring-emerald-500/20 transform transition-all w-max">
+                        <span class="text-[10px] md:text-[13px] font-black text-emerald-800 uppercase tracking-wider">🎯 <span id="ui-lbl-goal">Target Nest Egg</span>:</span>
+                        <span id="sumTargetAmount" class="font-black text-emerald-600 text-[14px] md:text-[20px] tracking-tight drop-shadow-sm">$0</span>
+                    </div>
+
+                    <p id="ui-fi-line" class="text-[11px] md:text-[15px] text-slate-800 leading-tight mt-1">
                         <strong class="text-black text-lg md:text-2xl font-black">F</strong>inancial <strong class="text-black text-lg md:text-2xl font-black">I</strong>ndependence in:
                     </p>
                 </div>
-                <div class="flex items-center gap-1.5 md:gap-3 z-10 bg-white/40 px-2 py-1 rounded-lg backdrop-blur-sm shadow-sm border border-white/50">
-                    <div id="sumYears" class="text-3xl md:text-5xl font-black tracking-tighter leading-none text-shadow-sm text-slate-800">10.3</div>
+                <div class="flex items-center gap-1.5 md:gap-3 z-10 bg-white/60 px-3 py-2 rounded-xl backdrop-blur-sm shadow-md border border-white/50">
+                    <div id="sumYears" class="text-4xl md:text-6xl font-black tracking-tighter leading-none text-shadow-sm text-slate-800 drop-shadow-sm">10.3</div>
                     <div class="flex flex-col justify-center items-start">
-                        <span id="ui-lbl-years" class="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-slate-600 leading-none mb-1">Years</span>
-                        <span id="sumStatus" class="px-1.5 py-0.5 text-[7px] md:text-[9px] font-black rounded uppercase tracking-wider whitespace-nowrap text-white shadow-sm leading-tight flex flex-col items-center">Status</span>
+                        <span id="ui-lbl-years" class="text-[10px] md:text-[12px] font-black uppercase tracking-widest text-slate-600 leading-none mb-1">Years</span>
+                        <span id="sumStatus" class="px-2 py-0.5 text-[8px] md:text-[10px] font-black rounded uppercase tracking-wider whitespace-nowrap text-white shadow-sm leading-tight flex flex-col items-center">Status</span>
                     </div>
                 </div>
                 <div class="absolute -right-8 -bottom-10 opacity-5 md:opacity-10 text-[140px] leading-none pointer-events-none">🎯</div>
             </div>
-
-            <!-- Ask AI to Roast My Plan Button -->
-            <button id="roastBtn" class="w-full bg-slate-800 text-amber-400 py-1.5 md:py-2 text-[10px] md:text-xs uppercase tracking-widest font-black hover:bg-slate-700 transition-colors flex justify-center items-center gap-2 border-b border-slate-700 shadow-inner flex-shrink-0 z-10">
-                ✨ <span id="ui-roast-btn">Ask AI to Roast My Plan</span> ✨
-            </button>
 
             <!-- Matrix Table -->
             <div class="table-container bg-slate-50 relative flex-grow">
@@ -299,23 +292,6 @@
         
     </div>
 
-    <!-- AI Roast Modal -->
-    <div id="roastModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] hidden flex justify-center items-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full border-2 border-slate-200 flex flex-col overflow-hidden transform transition-all">
-            <div class="bg-slate-800 text-white p-3 flex justify-between items-center shadow-md z-10">
-                <h2 id="ui-roast-title" class="font-black tracking-tight text-sm uppercase text-amber-400">🔥 AI Plan Roast</h2>
-                <button id="closeRoastBtn" class="text-slate-400 hover:text-white font-black px-2 text-lg leading-none">&times;</button>
-            </div>
-            <div class="p-6 text-slate-700 text-sm md:text-base font-medium leading-relaxed min-h-[120px] flex flex-col items-center justify-center bg-slate-50 relative">
-                <div id="roastLoading" class="hidden flex-col items-center w-full">
-                    <div class="roast-spinner"></div>
-                    <p id="ui-roast-loading" class="text-xs text-amber-600 font-bold uppercase tracking-widest">Consulting the Oracle...</p>
-                </div>
-                <div id="roastContent" class="w-full text-center text-slate-800 italic"></div>
-            </div>
-        </div>
-    </div>
-
     <!-- YouTube Launch Toast -->
     <div id="ytToast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 translate-y-[250%] transition-transform duration-500 ease-out bg-slate-900 text-rose-400 px-5 py-3 rounded-full shadow-2xl font-black text-[10px] md:text-xs tracking-widest z-[150] flex items-center gap-3 border border-rose-900/50 w-max max-w-[90vw]">
         <span class="animate-pulse text-sm">📡</span> 
@@ -323,8 +299,6 @@
     </div>
 
     <script>
-        const apiKey = ""; // API Key to be handled via secure deployment later
-        
         function showYtToast() {
             const t = document.getElementById('ytToast');
             t.classList.remove('translate-y-[250%]');
@@ -514,12 +488,12 @@
 
         // --- Core Utilities ---
         const parseNum = (str) => parseFloat(str.toString().replace(/,/g, '')) || 0;
-        const fmtCurrency = (num) => "SGD " + num.toLocaleString('en-US');
+        const fmtCurrency = (num) => "$" + num.toLocaleString('en-US');
         const fmtNum = (num) => num.toLocaleString('en-US');
         const fmtK = (num) => {
-            if(num >= 1000000) return "SGD " + (num/1000000).toFixed(2) + "M";
-            if(num >= 1000) return "SGD " + (num/1000).toFixed(0) + "k";
-            return "SGD " + num;
+            if(num >= 1000000) return "$" + (num/1000000).toFixed(2) + "M";
+            if(num >= 1000) return "$" + (num/1000).toFixed(0) + "k";
+            return "$" + num;
         };
 
         // --- View Navigation & Rendering ---
@@ -621,10 +595,11 @@
         // --- i18n Engine ---
         const i18n = {
             en: {
-                title: "The Math of Freedom", madeBy: "Email Eush",
+                title: "The Math of Freedom", madeBy: "Email",
                 lblCf: "Monthly Cash Flow", lblIn: "Income:", lblOut: "Expenses:", lblSr: "Sav. Rate %:",
                 lblStash: "Total Stash", lblCash: "Cash:", lblPort: "Investments:", lblTotal: "Total:",
                 lblReturn: "Market Return", lblDeadline: "Deadline", lblSwr: "SWR:",
+                lblGoal: "Target Nest Egg",
                 lblYears: "Years", yrs: "YRS",
                 thPay: "Savings", thInvested: "Rate %", thRet: "Return",
                 tInv: "Investing", tAt: "at", tRet: "returns", tWith: " (with ", tSaved: " saved)",
@@ -634,10 +609,6 @@
                 promptFail: "⚠️ Extend Deadline<br><span class='text-[7px] md:text-[10px] text-rose-500'>OR Increase Savings</span>",
                 lblNever: "NEVER", lblFI: "FI",
                 btnPicks: "Eush Picks",
-                btnRoast: "Ask AI to Roast My Plan",
-                modalTitle: "🔥 AI Plan Roast",
-                modalLoading: "Consulting the Oracle...",
-                errOracle: "Failed to reach the oracle. The servers must have retired early.",
                 captions: {
                     5: "Boring but Safe<br><span class='font-normal text-[7px] md:text-[10px] opacity-80'>(Gov Bonds, Fixed Dep.)</span>", 
                     10: "S&P 500: Reliable<br><span class='font-normal text-[7px] md:text-[10px] opacity-80'>(VOO, AAPL, MSFT)</span>", 
@@ -662,10 +633,11 @@
                 }
             },
             zh: {
-                title: "提早退休的数学", madeBy: "电邮联系 Eush",
+                title: "提早退休的数学", madeBy: "电邮",
                 lblCf: "每月现金流", lblIn: "收入:", lblOut: "支出:", lblSr: "储蓄率 %:",
                 lblStash: "总储备", lblCash: "现金:", lblPort: "投资:", lblTotal: "总计:",
                 lblReturn: "预期回报", lblDeadline: "目标年限", lblSwr: "提取率:",
+                lblGoal: "目标金额",
                 lblYears: "年", yrs: "年",
                 thPay: "储蓄率", thInvested: "(%)", thRet: "回报",
                 tInv: "每月投资", tAt: "以", tRet: "的回报率", tWith: " (已有 ", tSaved: " 储备)",
@@ -675,10 +647,6 @@
                 promptFail: "⚠️ 延长期限<br><span class='text-[7px] md:text-[10px] text-rose-500'>或 提高储蓄率</span>",
                 lblNever: "无望", lblFI: "达标",
                 btnPicks: "Eush 精选",
-                btnRoast: "让AI吐槽我的计划",
-                modalTitle: "🔥 AI 吐槽大会",
-                modalLoading: "请神明指示...",
-                errOracle: "无法连接到神明，服务器可能已经提早退休了。",
                 captions: {
                     5: "无聊但安全<br><span class='font-normal text-[7px] md:text-[10px] opacity-80'>(国债，定期存款)</span>", 
                     10: "标普500: 稳健<br><span class='font-normal text-[7px] md:text-[10px] opacity-80'>(VOO, 苹果, 微软)</span>", 
@@ -730,12 +698,6 @@
         const sumStatus = document.getElementById('sumStatus');
         const langToggleBtn = document.getElementById('langToggle');
 
-        const roastBtn = document.getElementById('roastBtn');
-        const roastModal = document.getElementById('roastModal');
-        const closeRoastBtn = document.getElementById('closeRoastBtn');
-        const roastLoading = document.getElementById('roastLoading');
-        const roastContent = document.getElementById('roastContent');
-
         // --- Translation Application ---
         function applyTranslations() {
             const t = i18n[currentLang];
@@ -752,6 +714,7 @@
             document.getElementById('ui-lbl-return').innerText = t.lblReturn;
             document.getElementById('ui-lbl-deadline').innerText = t.lblDeadline;
             document.getElementById('ui-lbl-swr').innerText = t.lblSwr;
+            document.getElementById('ui-lbl-goal').innerText = t.lblGoal;
             document.getElementById('ui-lbl-years').innerText = t.lblYears;
             document.getElementById('ui-yrs-1').innerText = t.yrs;
             
@@ -762,9 +725,6 @@
             document.getElementById('ui-t-saved').innerText = t.tSaved;
             document.getElementById('ui-fi-line').innerHTML = t.fiLine;
             document.getElementById('btn-view-ranks').innerText = t.btnPicks;
-            document.getElementById('ui-roast-btn').innerText = t.btnRoast;
-            document.getElementById('ui-roast-title').innerText = t.modalTitle;
-            document.getElementById('ui-roast-loading').innerText = t.modalLoading;
 
             langToggleBtn.innerText = currentLang === 'en' ? '中' : 'EN';
         }
@@ -844,37 +804,6 @@
         numTarget.addEventListener('keyup', (ev) => { if(ev.key === 'Enter') numTarget.blur(); });
         valSwr.addEventListener('input', (e) => { swrDisplay.innerText = parseFloat(e.target.value).toFixed(1) + "%"; buildApp(); });
 
-        async function fetchGeminiRoast(promptText) {
-            if(!apiKey) return "API Key is required to power the Oracle.";
-            const maxRetries = 5;
-            const delays = [1000, 2000, 4000, 8000, 16000];
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            for (let i = 0; i < maxRetries; i++) {
-                try {
-                    const resp = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] }) });
-                    if (!resp.ok) throw new Error('API Error');
-                    const data = await resp.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response.";
-                } catch (e) {
-                    if (i === maxRetries - 1) return i18n[currentLang].errOracle;
-                    await new Promise(res => setTimeout(res, delays[i]));
-                }
-            }
-        }
-
-        roastBtn.addEventListener('click', async () => {
-            roastModal.classList.remove('hidden');
-            roastLoading.classList.add('flex');
-            roastLoading.classList.remove('hidden');
-            roastContent.innerText = "";
-            const prompt = `Act as a cynical FIRE advisor. Monthly Income: SGD ${parseNum(numIncome.value)}, Monthly Expenses: SGD ${parseNum(numExpense.value)}, Savings Rate: ${parseNum(numSr.value)}%, Cash: SGD ${parseNum(numCash.value)}, Investments: SGD ${parseNum(numPortfolio.value)}, Return: ${parseNum(numReturn.value)}%, Goal: ${parseNum(numTarget.value)} years, SWR: ${valSwr.value}%. Roast my plan in 3 sentences. ${currentLang === 'zh' ? 'Use Chinese internet slang.' : 'Use English.'}`;
-            const resp = await fetchGeminiRoast(prompt);
-            roastLoading.classList.add('hidden');
-            roastContent.innerText = resp;
-        });
-
-        closeRoastBtn.addEventListener('click', () => roastModal.classList.add('hidden'));
-
         function calculateYearsAbsolute(monthlySavings, targetAmount, annualReturn, totalStash) {
             if (totalStash >= targetAmount) return 0; 
             const annualSavings = monthlySavings * 12;
@@ -918,6 +847,9 @@
 
             let exactProjectedYears = annualExpenses > 0 ? calculateYearsAbsolute(monthlySavings, fiTarget, r, totalStash) : (income > 0 ? 0 : Infinity);
             
+            // Set Target Amount text
+            document.getElementById('sumTargetAmount').innerText = fmtCurrency(Math.round(fiTarget));
+
             sumSavingsCurrency.innerText = fmtCurrency(monthlySavings) + "/mo";
             sumSavingsPct.innerText = (savingsRate * 100).toFixed(0);
             sumReturn.innerText = `${(r * 100).toFixed(0)}%`;
@@ -934,16 +866,16 @@
             else sumYears.innerText = exactProjectedYears.toFixed(1);
 
             if (exactProjectedYears <= targetYears) {
-                summaryDashboard.className = "bg-emerald-50 border-l-8 border-emerald-500 p-2 md:p-3 flex flex-row items-center justify-between border-b shadow-md flex-shrink-0 overflow-hidden";
+                summaryDashboard.className = "bg-emerald-50 border-l-8 border-emerald-500 p-3 md:p-4 flex flex-row items-center justify-between border-b shadow-md transition-colors duration-300 flex-shrink-0 relative overflow-hidden";
                 sumStatus.innerHTML = t.statusAchieved;
-                sumStatus.className = "px-1.5 py-0.5 text-[9px] md:text-[11px] font-black rounded uppercase bg-emerald-600 text-white shadow-sm leading-none";
-                sumYears.className = "text-3xl md:text-5xl font-black tracking-tighter leading-none text-emerald-700 drop-shadow-sm";
+                sumStatus.className = "px-2 py-0.5 text-[8px] md:text-[10px] font-black rounded uppercase tracking-wider whitespace-nowrap bg-emerald-600 text-white shadow-sm leading-none";
+                sumYears.className = "text-4xl md:text-6xl font-black tracking-tighter leading-none text-emerald-700 drop-shadow-sm";
                 deadlinePrompt.innerHTML = `<span class="text-emerald-600">${t.promptTrack}</span>`;
             } else {
-                summaryDashboard.className = "bg-rose-50 border-l-8 border-rose-500 p-2 md:p-3 flex flex-row items-center justify-between border-b shadow-md flex-shrink-0 overflow-hidden";
-                sumStatus.innerHTML = `⚠️ MISSED DEADLINE<div class="mt-1 font-bold text-[6px] md:text-[7px] normal-case opacity-90 leading-tight">1. Extend Deadline<br>2. Increase Savings</div>`;
-                sumStatus.className = "px-1.5 py-1 text-[8px] md:text-[10px] font-black rounded uppercase bg-rose-600 text-white shadow-sm leading-tight flex flex-col items-center text-center";
-                sumYears.className = "text-3xl md:text-5xl font-black tracking-tighter leading-none text-rose-700 drop-shadow-sm";
+                summaryDashboard.className = "bg-rose-50 border-l-8 border-rose-500 p-3 md:p-4 flex flex-row items-center justify-between border-b shadow-md transition-colors duration-300 flex-shrink-0 relative overflow-hidden";
+                sumStatus.innerHTML = `⚠️ MISSED DEADLINE<div class="mt-1 font-bold text-[6px] md:text-[8px] normal-case opacity-90 leading-tight">1. Extend Deadline<br>2. Increase Savings</div>`;
+                sumStatus.className = "px-2 py-1 text-[8px] md:text-[10px] font-black rounded uppercase tracking-wider whitespace-nowrap bg-rose-600 text-white shadow-sm leading-tight flex flex-col items-center text-center";
+                sumYears.className = "text-4xl md:text-6xl font-black tracking-tighter leading-none text-rose-700 drop-shadow-sm";
                 deadlinePrompt.innerHTML = `<span class="text-rose-600">${t.promptFail}</span>`;
             }
 
