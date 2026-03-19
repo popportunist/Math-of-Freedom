@@ -82,18 +82,6 @@
         .animate-fail { animation: pulse-ring-fail 2s infinite; }
         .pop-text { transform: scale(1.15); color: #e11d48; transition: all 0.2s ease-out; }
 
-        /* Roast Modal Spinner */
-        .roast-spinner {
-            border: 3px solid rgba(251, 191, 36, 0.3);
-            border-radius: 50%;
-            border-top: 3px solid #f59e0b;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 12px auto;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         /* Tier Visual Weight Animations */
         @keyframes gold-shimmer {
             0% { background-position: -200% center; }
@@ -158,7 +146,10 @@
                     
                     <!-- 1. Monthly Cash Flow -->
                     <div class="bg-white p-1.5 md:p-2 rounded border border-sky-200 shadow-sm flex flex-col justify-start relative">
-                        <span id="ui-lbl-cf" class="text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-tight mb-1 border-b border-slate-100 pb-0.5">Monthly Cash Flow</span>
+                        <div class="flex justify-between items-end mb-1 border-b border-slate-100 pb-0.5">
+                            <span id="ui-lbl-cf" class="text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-tight">Monthly Cash Flow</span>
+                            <span id="netCashFlowDisplay" class="text-[10px] md:text-[12px] font-black text-sky-600 tracking-tight">$0</span>
+                        </div>
                         
                         <div class="flex justify-between items-center mt-0.5 w-full">
                             <span id="ui-lbl-in" class="text-[8px] md:text-[9px] font-bold text-sky-500 uppercase flex-shrink-0">Income:</span>
@@ -245,23 +236,23 @@
 
             <!-- Summary Dashboard -->
             <div id="summaryDashboard" class="p-3 md:p-4 flex flex-row items-center justify-between border-b shadow-md transition-colors duration-300 flex-shrink-0 relative overflow-hidden">
-                <div class="text-left flex-1 pr-1 z-10 flex flex-col justify-center">
+                <div class="text-left flex-1 pr-2 z-10 flex flex-col justify-center">
                     <p id="ui-proj-lbl" class="text-[10px] md:text-[13px] font-medium leading-tight text-slate-700 mb-1.5 md:mb-2">
                         <span id="ui-t-inv">Investing</span> <span id="sumSavingsCurrency" class="font-black text-sky-700">$6,000/mo</span> <span class="opacity-70">(<span id="sumSavingsPct">60</span>%)</span> <span id="ui-t-at">at</span> <span id="sumReturn" class="font-black text-rose-600">10%</span> <span id="ui-t-ret">returns</span><span id="sumStashText" class="hidden"><span id="ui-t-with"> (with </span><span id="sumStashYears" class="font-bold text-purple-600">0 yrs</span><span id="ui-t-saved"> saved)</span></span>,
                     </p>
 
-                    <p id="ui-fi-line" class="text-[11px] md:text-[15px] text-slate-800 leading-tight mb-1">
+                    <p id="ui-fi-line" class="text-[11px] md:text-[15px] text-slate-800 leading-tight mb-1.5 md:mb-2">
                         <strong class="text-black text-lg md:text-2xl font-black">F</strong>inancial <strong class="text-black text-lg md:text-2xl font-black">I</strong>ndependence in:
                     </p>
                     
-                    <!-- REDUCED TARGET PILL -->
-                    <div class="flex items-center gap-1 md:gap-1.5 inline-flex bg-gradient-to-r from-emerald-100 to-teal-50 border border-emerald-200 px-2 md:px-3 py-0.5 md:py-1 rounded shadow-sm ring-1 ring-emerald-500/10 transform transition-all w-max mt-0.5">
+                    <!-- REDUCED TARGET PILL (MOVED BELOW FI TEXT) -->
+                    <div class="flex items-center gap-1 md:gap-1.5 inline-flex bg-gradient-to-r from-emerald-100 to-teal-50 border border-emerald-200 px-2 md:px-3 py-0.5 md:py-1 rounded shadow-sm ring-1 ring-emerald-500/10 transform transition-all w-max">
                         <span class="text-[8px] md:text-[10px] font-bold text-emerald-800 uppercase tracking-wider">🎯 <span id="ui-lbl-goal">Target Nest Egg</span>:</span>
                         <span id="sumTargetAmount" class="font-black text-emerald-600 text-[11px] md:text-[14px] tracking-tight drop-shadow-sm">$0</span>
                     </div>
-
                 </div>
-                <div class="flex items-center gap-1.5 md:gap-2 z-10 bg-white/60 px-2.5 py-1.5 md:py-2 rounded-xl backdrop-blur-sm shadow-sm border border-white/50">
+                
+                <div class="flex items-center gap-1.5 md:gap-2 z-10 bg-white/60 px-2.5 py-1.5 md:py-2 rounded-xl backdrop-blur-sm shadow-sm border border-white/50 shrink-0">
                     <div id="sumYears" class="text-3xl md:text-4xl font-black tracking-tighter leading-none text-shadow-sm text-slate-800 drop-shadow-sm">10.3</div>
                     <div class="flex flex-col justify-center items-start">
                         <span id="ui-lbl-years" class="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-slate-600 leading-none mb-0.5">Years</span>
@@ -284,8 +275,8 @@
         <div id="view-ranks" class="flex-grow flex flex-col overflow-auto view-hidden bg-slate-100">
             <!-- Intro Banner -->
             <div class="bg-indigo-900 text-white p-4 md:p-6 shadow-md z-[40] relative flex-shrink-0">
-                <h2 class="font-black text-lg md:text-2xl tracking-tight text-emerald-400">🔥 Eush Picks: The Conviction List</h2>
-                <p class="text-xs md:text-sm text-indigo-200 mt-1 max-w-2xl">A curated list of global assets ranked purely by the strength of their business moat and execution reality. Built for the everyday salaryman.</p>
+                <h2 id="picks-banner-title" class="font-black text-lg md:text-2xl tracking-tight text-emerald-400">🔥 Eush Picks: The Conviction List</h2>
+                <p id="picks-banner-desc" class="text-xs md:text-sm text-indigo-200 mt-1 max-w-2xl">A curated list of global assets ranked purely by the strength of their business moat and execution reality. Built for the everyday salaryman.</p>
             </div>
             
             <div class="flex-grow p-3 md:p-6 bg-slate-100 space-y-8">
@@ -295,9 +286,9 @@
                 <!-- Pitch CTA -->
                 <div class="mt-8 mb-8 text-center pb-8">
                     <div class="inline-block bg-slate-200/50 p-5 md:p-6 rounded-xl border border-slate-300 border-dashed backdrop-blur-sm shadow-sm max-w-md mx-auto">
-                        <p class="text-sm md:text-base font-black text-slate-800 mb-1.5 tracking-tight">Found a hidden moat?</p>
-                        <p class="text-xs md:text-sm text-slate-600 mb-4 font-medium leading-relaxed">Pitch your highest conviction asset. If the thesis survives the Panel of Experts, it makes the tier list.</p>
-                        <a href="mailto:popportunist@gmail.com" class="inline-block bg-slate-800 text-emerald-400 px-5 py-2.5 rounded shadow-md text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-slate-700 transition-all hover:-translate-y-0.5">Pitch an Asset</a>
+                        <p id="pitch-title" class="text-sm md:text-base font-black text-slate-800 mb-1.5 tracking-tight">Found a hidden moat?</p>
+                        <p id="pitch-desc" class="text-xs md:text-sm text-slate-600 mb-4 font-medium leading-relaxed">Pitch your highest conviction asset. If the thesis survives the Panel of Experts, it makes the tier list.</p>
+                        <a href="mailto:popportunist@gmail.com" id="pitch-btn" class="inline-block bg-slate-800 text-emerald-400 px-5 py-2.5 rounded shadow-md text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-slate-700 transition-all hover:-translate-y-0.5">Pitch an Asset</a>
                     </div>
                 </div>
             </div>
@@ -318,8 +309,8 @@
             setTimeout(() => t.classList.add('translate-y-[250%]'), 3500);
         }
 
-        // --- Asset Data Matrix (Neutral, Merit-Based Tier System with Layman Moats & Doomsday Scenarios) ---
-        const convictions = [
+        // --- Asset Data Matrix Translations ---
+        const convictions_en = [
             { 
                 t: "SSSR", a: "Alphabet", ticker: "GOOGL",
                 d: "The Three-Headed Cash Machine: 1. Search prints money from consumer intent. 2. YouTube is the undisputed TV of the new generation. 3. Cloud infrastructure powers the modern internet.", 
@@ -336,7 +327,6 @@
                 m: "Their cloud business margins are expanding. More importantly, their massive investments in delivery vans and warehouses are finally becoming hyper-efficient, turning shopping into a true profit engine.", 
                 k: "They have to spend a terrifying amount of money on AI data centers. If interest rates spike globally, their valuation takes a heavy hit." 
             },
-            
             { 
                 t: "SSR", a: "Tencent", ticker: "0700.HK",
                 d: "China’s dominant social media, gaming, and fintech ecosystem.", 
@@ -353,7 +343,6 @@
                 m: "They have completely cornered the European travel market. They generate massive cash, don't have to own physical hotels (asset-light), and constantly use that cash to buy back their own stock.", 
                 k: "Google is starting to steal travel searches before people even reach Booking.com. If a global recession hits, travel is the first thing consumers cut." 
             },
-            
             { 
                 t: "S", a: "DBS Group", ticker: "D05.SI",
                 d: "Southeast Asia’s dominant banking powerhouse and top wealth manager.", 
@@ -370,7 +359,6 @@
                 m: "Total vertical integration gives them profit margins competitors cannot touch. They are successfully and aggressively expanding out of China into Southeast Asia and Europe.", 
                 k: "The US and Europe are slapping massive taxes (tariffs) on them to protect their own car makers. Meanwhile, a brutal price war inside China is crushing profit margins across the board." 
             },
-            
             { 
                 t: "A", a: "Alibaba", ticker: "9988.HK",
                 d: "The foundational infrastructure of Chinese e-commerce and cloud computing.", 
@@ -395,7 +383,6 @@
                 m: "Allows you to buy Tencent at a huge ~30% discount. The company is continuously selling Tencent shares to buy back its own stock, which mathematically forces that discount to close over time.", 
                 k: "The market might never fully respect the puzzle box, meaning the discount could be permanent. Being based in the Netherlands exposes them to complex tax laws." 
             },
-            
             { 
                 t: "B", a: "Hyperliquid Eco", ticker: "HYPE / PURR",
                 d: "A blazing-fast cryptocurrency trading exchange built on its own blockchain.", 
@@ -412,7 +399,6 @@
                 m: "Earnings are growing at 30%+ but the stock is trading at bargain-bin prices. They are absolutely dominating the small business market in Latin America.", 
                 k: "Brazil's economy is historically unstable. If the Brazilian currency (BRL) crashes, their profits evaporate when converted back to USD." 
             },
-            
             { 
                 t: "C", a: "China Sunsine", ticker: "CGXC",
                 d: "The world's largest producer of the chemicals needed to make rubber tires durable.", 
@@ -421,7 +407,6 @@
                 m: "A classic 'Deep Value' play. The company holds more cash in the bank than the entire stock market says the company is worth, yet they are highly profitable and dominate market share.", 
                 k: "If people stop buying cars globally, tire production halts, and their profits tank. A classic 'value trap' risk with no immediate reason for the stock price to jump." 
             },
-            
             { 
                 t: "D", a: "Chagee", ticker: "CHA",
                 d: "A trendy, modern Chinese premium tea chain expanding rapidly.", 
@@ -432,11 +417,117 @@
             }
         ];
 
+        const convictions_zh = [
+            { 
+                t: "SSSR", a: "谷歌", ticker: "GOOGL",
+                d: "三头现金牛：1. 搜索通过用户意图印钞。2. YouTube 是新一代毋庸置疑的电视。3. 云基础设施为现代互联网提供动力。", 
+                lm: "想象一下，试图说服全世界不再把‘Google’当作动词来用。它是互联网的默认起点。你不能随便建个新搜索引擎，就指望人们轻易改变肌肉记忆。",
+                x: "互联网实际上瘫痪了。你无法搜索，地图罢工，数百万小企业在一夜之间从本地视野中消失，整整一代人失去了他们主要的娱乐和教育平台（YouTube）。",
+                m: "产生惊人的现金流。沃伦·巴菲特的伯克希尔哈撒韦最近的买入印证了其 AI 基础设施的领导地位。与其他科技巨头相比，它的估值依然便宜得不可思议。", 
+                k: "美国政府想以垄断为由拆分它。AI 搜索引擎（如 ChatGPT）可能会慢慢从传统搜索中窃取用户。" 
+            },
+            { 
+                t: "SSSR", a: "亚马逊", ticker: "AMZN",
+                d: "全球云计算（AWS）领导者和电商配送物流之王。", 
+                lm: "他们花了 20 年和数十亿美元在各地建造实体仓库，以便你在 12 小时内收到商品。地球上没有任何初创公司有钱复制这种庞大的实体配送网络。",
+                x: "半个互联网瘫痪。Netflix、Disney+ 和数百万网站会立即崩溃，因为它们由 AWS 驱动。此外，日常家庭用品的全球供应链将陷入停滞。",
+                m: "他们的云业务利润率正在扩张。更重要的是，他们在送货车和仓库上的巨额投资终于开始变得极具效率，使购物真正成为利润引擎。", 
+                k: "他们必须在 AI 数据中心上投入可怕的资金。如果全球利率飙升，他们的估值将受到沉重打击。" 
+            },
+            { 
+                t: "SSR", a: "腾讯", ticker: "0700.HK",
+                d: "中国占据统治地位的社交媒体、游戏和金融科技生态系统。", 
+                lm: "它是中国的数字氧气。没有微信，你简直无法点咖啡、付账单或给老板发信息。人们不可能直接停止呼吸氧气。",
+                x: "中国社会按下暂停键。你将无法购买日用品、解锁共享单车、给家人发信息或出示数字身份证。这无异于切断了一座现代城市的电力。",
+                m: "即使他们停止回购自家股票，微信依然是一个坚不可摧的收费站。它就像是对中国数字生活征收的无法逃避的税，产生着巨大且稳定的现金流。", 
+                k: "中国政府严格限制他们能从年轻玩家身上赚多少钱。国内经济放缓会损害他们的广告收入。" 
+            },
+            { 
+                t: "SSR", a: "Booking", ticker: "BKNG",
+                d: "全球占据主导地位的旅游平台（拥有 Booking.com 和 Agoda）。", 
+                lm: "酒店讨厌支付平台费，但又不得不付，因为所有游客都在用这个应用。游客用这个应用是因为所有酒店都在上面。这是一台完美的‘第22条军规’式印钞机。",
+                x: "全球旅游业恐慌。数以千计的独立酒店将瞬间失去 80% 的客户预订，全球游客也将失去轻松比较和预订假期的能力。",
+                m: "他们完全垄断了欧洲旅游市场。他们产生大量现金，无需拥有实体酒店（轻资产），并不断用这些现金回购自家股票。", 
+                k: "谷歌开始在人们访问 Booking.com 之前窃取旅游搜索流量。如果全球衰退来袭，旅游是消费者最先削减的开支。" 
+            },
+            { 
+                t: "S", a: "星展银行", ticker: "D05.SI",
+                d: "东南亚银行业霸主和顶尖财富管理机构。", 
+                lm: "几乎每个新加坡打工人的工资都会自动存入这里。星展银行以几乎 0% 的利息获得我们的钱，然后以 4% 以上的利率贷出做房贷。这就是拥有了印钞许可证。",
+                x: "新加坡经济面临心脏骤停。数百万本地人将拿不到工资，成千上万的房屋抵押贷款将陷入瘫痪，日常的街头交易（通过 PayLah!）将冻结。",
+                m: "无与伦比的存款基础，产生高度可持续的 5-6% 股息。他们拥有创纪录的股本回报率（约 18%），以及堡垒般的资产负债表，在逆境中提供极致的安全性。", 
+                k: "如果美联储大幅降息，银行的利润空间就会缩小。高度暴露于亚洲任何严重的经济衰退风险中。" 
+            },
+            { 
+                t: "S", a: "比亚迪", ticker: "1211.HK",
+                d: "毫无争议的全球电动汽车（EV）及先进电池技术领导者。", 
+                lm: "他们实际上自己制造汽车内部的所有部件，从电池到电脑芯片。因为不从中间商那里购买，他们的成本极低，让西方汽车制造商感到恐惧。",
+                x: "全球向平价电动汽车的转型将停滞十年。数百万驾驶员将失去购买中产阶级负担得起的电动汽车的机会，电池供应链也将破碎。",
+                m: "完全的垂直整合赋予了他们竞争对手无法企及的利润率。他们正成功且激进地从中国扩张到东南亚和欧洲。", 
+                k: "美国和欧洲正对他们征收重税（关税）以保护本土汽车制造商。同时，中国国内残酷的价格战正在挤压全行业的利润空间。" 
+            },
+            { 
+                t: "A", a: "阿里巴巴", ticker: "9988.HK",
+                d: "中国电商和云服务的基础设施。", 
+                lm: "他们拥有中国网购最底层的数字管道。即使出现激烈的竞争对手，迫使成千上万的商家拆除并替换他们底层的商业管道也是一场噩梦。",
+                x: "中国零售骨干网络崩溃。数百万商家失去他们的主要店面，庞大的物流网络（菜鸟）停止运送包裹，无数的企业云系统崩溃。",
+                m: "相对于它产生的巨大现金流而言，其交易价格便宜得难以置信。管理层正通过大规模股份回购和股息（约 7-8% 的收益率）积极将现金返还给股东。", 
+                k: "在核心商务领域，他们不可否认地正在将市场份额输给像拼多多（Temu）和抖音这样更饥渴的竞争对手。西方投资者仍然对中国政治风险感到恐惧。" 
+            },
+            { 
+                t: "A", a: "Adobe", ticker: "ADBE",
+                d: "创意专业人士的必备软件垄断者（Photoshop, Illustrator）。", 
+                lm: "每个专业设计师都花了 10,000 小时来掌握 Photoshop 快捷键。强迫一家广告公司换用新软件，就像强迫一个讲英语的人突然用俄语工作一样。",
+                x: "全球创意产业停工。营销机构、电影制片厂和设计师将无法打开、编辑或创建他们的数字文件。没有了 PDF，全球的合同都将停滞。",
+                m: "他们拥有 90% 的利润率，因为公司一旦订阅，就永远不会离开。目前以深度的历史折扣交易，因为市场不理性地害怕 AI 会取代设计师。", 
+                k: "AI 视频生成器（如 OpenAI 的 Sora）可能会绕过传统的视频剪辑。像 Canva 这种廉价、简单的工具正在抢占低端业余市场。" 
+            },
+            { 
+                t: "A", a: "Prosus", ticker: "PRX.AS",
+                d: "一家全球科技投资公司，其核心资产是持有腾讯逾 25% 的巨额股份。", 
+                lm: "这是一个合法的漏洞。想象一下，你能花 70 美元买到一张 100 美元的钞票，仅仅是因为这张 100 美元钞票被锁在一个稍微有些麻烦的欧洲机关盒里。",
+                x: "作为一家控股公司，直接的日常影响微乎其微。然而，欧洲科技融资将失去其最大金主，严重损害当地初创企业和创新生态系统。",
+                m: "允许你以约 30% 的巨大折扣购买腾讯。该公司正不断出售腾讯股票来回购自己的股票，这在数学上迫使该折扣随着时间的推移而缩小。", 
+                k: "市场可能永远不会完全认可这个机关盒，这意味着折扣可能是永久性的。总部位于荷兰使他们面临复杂的税法风险。" 
+            },
+            { 
+                t: "B", a: "Hyperliquid Eco", ticker: "HYPE / PURR",
+                d: "建立在自有区块链上的极速加密货币衍生品交易平台。", 
+                lm: "他们建立了一个加密赌场，执行交易的速度和华尔街一样快。一旦豪客们习惯了那种闪电般的速度，他们就不会再回到笨重、缓慢的平台了。",
+                x: "去中心化金融的前沿倒退一大步。每天数十亿美元的交易量将不得不流回更慢的、基于信任的中心化交易所。",
+                m: "与大多数无用的加密货币不同，它从交易费中产生巨大且真实的现金流（日交易量逾 100 亿美元）。PURR 代币允许普通投资者从中获利，而无需处理复杂的加密钱包。", 
+                k: "加密货币波动极大。政府尚未搞清楚如何监管它，而且智能合约被黑客攻击是永远存在的心腹大患。" 
+            },
+            { 
+                t: "B", a: "StoneCo", ticker: "STNE",
+                d: "一家为巴西小商店服务的高增长金融科技公司。", 
+                lm: "他们向巴西本地商店分发支付终端，并将其与记账软件捆绑。一旦店主学会了这个系统，他们就太忙于经营商店而懒得去更换系统了。",
+                x: "巴西各地无数的夫妻小店突然无法刷信用卡或管理日常现金流，严重瘫痪了当地的街头经济。",
+                m: "盈利以 30% 以上的速度增长，但股票却以极其便宜的价格交易。他们正绝对主导着拉丁美洲的小企业市场。", 
+                k: "巴西经济历史上不稳定。如果巴西货币（雷亚尔 BRL）崩溃，他们转换回美元的利润就会蒸发。" 
+            },
+            { 
+                t: "C", a: "中国尚舜", ticker: "CGXC",
+                d: "全球最大的使橡胶轮胎耐用的化学品生产商。", 
+                lm: "他们生产无聊但必不可少的化学品。他们规模如此庞大且高效，以至于没有新竞争者愿意花费数百万美元建造一个有毒、受高度监管的化工厂，仅仅为了赚取微薄的利润。",
+                x: "全球轮胎生产面临严重的瓶颈。没有了他们特定的化学品，轮胎变得不耐用且不安全，影响从日常通勤到全球卡车运输的方方面面。",
+                m: "典型的“深度价值”投资。该公司银行里持有的现金比整个股票市场认为该公司的价值还要多，同时他们利润丰厚并占据主导市场份额。", 
+                k: "如果全球人们停止买车，轮胎生产就会停止，他们的利润也会暴跌。典型的“价值陷阱”风险，股价没有短期内大涨的理由。" 
+            },
+            { 
+                t: "D", a: "霸王茶姬", ticker: "CHA",
+                d: "一家正快速扩张的现代中国高端茶饮连锁品牌。", 
+                lm: "目前非常流行，但说到底它只是一杯茶。如果喜茶推出买一送一的折扣，没有任何结构性壁垒能阻止消费者走到隔壁去买。",
+                x: "人们只需走到隔壁，买一杯稍微不同的奶茶。社会瞬间继续运转。（这完美地说明了为什么它只有 D 级护城河）。",
+                m: "单店利润极高，品牌忠诚度快速增长。他们成功地在年轻高端消费者中打造了“茶界星巴克”的故事。", 
+                k: "竞争对手零进入门槛，消费者零转换成本。餐饮市场极具周期性，中国茶饮品牌正陷入一场残酷的、毁灭利润的价格战。" 
+            }
+        ];
+
         // --- Layman/Dramatic Tier Styling ---
         const tierStyles = {
             "SSSR": { 
                 badge: "👑 SSS-RANK",
-                desc: "GLOBAL MONOPOLIES & UNASSAILABLE MOATS",
                 bgHeader: "sssr-shimmer text-amber-900 border-b-4 border-amber-500 shadow-lg", 
                 titleColor: "font-black drop-shadow-sm",
                 cardBg: "bg-white border-2 border-amber-300 shadow-xl",
@@ -445,7 +536,6 @@
             },
             "SSR": { 
                 badge: "💎 SS-RANK",
-                desc: "DOMINANT CASH MACHINES",
                 bgHeader: "bg-gradient-to-r from-purple-800 to-indigo-900 text-white shadow-md border-b-4 border-purple-500", 
                 titleColor: "font-bold tracking-wide",
                 cardBg: "bg-white border border-purple-200 shadow-lg",
@@ -454,7 +544,6 @@
             },
             "S": { 
                 badge: "🥇 S-RANK",
-                desc: "COMPOUNDERS & HARDWARE KINGS",
                 bgHeader: "bg-blue-800 text-white shadow-md border-b-4 border-blue-500", 
                 titleColor: "font-bold tracking-wide",
                 cardBg: "bg-white border border-blue-200 shadow-md",
@@ -463,7 +552,6 @@
             },
             "A": { 
                 badge: "🎯 A-RANK",
-                desc: "DEEP VALUE & TURNAROUND PLAYS",
                 bgHeader: "bg-emerald-700 text-white shadow-sm border-b-4 border-emerald-400", 
                 titleColor: "font-bold",
                 cardBg: "bg-white border border-emerald-100 shadow-sm",
@@ -472,7 +560,6 @@
             },
             "B": { 
                 badge: "🚀 B-RANK",
-                desc: "HIGH-GROWTH & HIGH-BETA",
                 bgHeader: "bg-sky-700 text-white shadow-sm border-b-4 border-sky-400", 
                 titleColor: "font-bold",
                 cardBg: "bg-white border border-sky-100",
@@ -481,7 +568,6 @@
             },
             "C": { 
                 badge: "⚙️ C-RANK",
-                desc: "CYCLICAL VALUE & MICRO-CAPS",
                 bgHeader: "bg-slate-700 text-slate-200 shadow-sm border-b-4 border-slate-500", 
                 titleColor: "font-medium",
                 cardBg: "bg-white border border-slate-200 opacity-95",
@@ -490,12 +576,32 @@
             },
             "D": { 
                 badge: "⚠️ D-RANK",
-                desc: "HIGH-RISK & WEAK MOAT",
                 bgHeader: "bg-slate-300 text-slate-700 shadow-inner border-b-4 border-slate-400", 
                 titleColor: "font-medium",
                 cardBg: "bg-white border border-slate-200 opacity-75 grayscale-[30%]",
                 assetText: "text-slate-700 font-bold text-base",
                 tickerText: "bg-slate-200 text-slate-600"
+            }
+        };
+
+        const tierDescs = {
+            en: {
+                "SSSR": "GLOBAL MONOPOLIES & UNASSAILABLE MOATS",
+                "SSR": "DOMINANT CASH MACHINES",
+                "S": "COMPOUNDERS & HARDWARE KINGS",
+                "A": "DEEP VALUE & TURNAROUND PLAYS",
+                "B": "HIGH-GROWTH & HIGH-BETA",
+                "C": "CYCLICAL VALUE & MICRO-CAPS",
+                "D": "HIGH-RISK & WEAK MOAT"
+            },
+            zh: {
+                "SSSR": "全球垄断与坚不可摧的护城河",
+                "SSR": "印钞机级别的统治者",
+                "S": "复利机器与硬件之王",
+                "A": "深度价值与困境反转",
+                "B": "高增长与高弹性",
+                "C": "周期性价值与微盘股",
+                "D": "高风险与弱护城河"
             }
         };
 
@@ -532,20 +638,23 @@
         }
 
         function renderConvictions() {
+            const t = i18n[currentLang];
+            const activeConvictions = currentLang === 'en' ? convictions_en : convictions_zh;
             const container = document.getElementById('rankingsCardView');
-            const tiers = [...new Set(convictions.map(c => c.t))];
+            const tiers = [...new Set(activeConvictions.map(c => c.t))];
             let html = '';
 
             tiers.forEach(tier => {
-                const tierAssets = convictions.filter(c => c.t === tier);
+                const tierAssets = activeConvictions.filter(c => c.t === tier);
                 const style = tierStyles[tier];
+                const tierDesc = tierDescs[currentLang][tier];
                 
                 // Tier Header (Sticky with high Z-index to prevent scrolling overlap)
                 html += `
                 <div class="mb-10">
                     <div class="sticky top-0 z-[50] ${style.bgHeader} p-3 md:p-4 flex flex-col md:flex-row justify-between items-start md:items-center rounded-xl mb-4">
                         <h3 class="${style.titleColor} text-lg md:text-2xl">${style.badge}</h3>
-                        <span class="text-[10px] md:text-xs font-black uppercase tracking-widest opacity-90 mt-1 md:mt-0">${style.desc}</span>
+                        <span class="text-[10px] md:text-xs font-black uppercase tracking-widest opacity-90 mt-1 md:mt-0">${tierDesc}</span>
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 relative z-[10]">
@@ -566,13 +675,13 @@
                                     <div class="bg-indigo-50/80 p-3 rounded-lg border border-indigo-100">
                                         <div class="flex items-center gap-1.5 mb-1">
                                             <span class="text-base">🏰</span>
-                                            <span class="text-[10px] font-black uppercase text-indigo-600 tracking-wider">The Unfair Advantage</span>
+                                            <span class="text-[10px] font-black uppercase text-indigo-600 tracking-wider">${t.lblMoat}</span>
                                         </div>
                                         <p class="text-slate-700 text-xs italic leading-relaxed">"${c.lm}"</p>
                                         
                                         <!-- Doomsday Scenario Embedded inside the Moat block -->
                                         <div class="bg-slate-800 p-2.5 rounded-lg border-l-2 border-slate-600 mt-2.5 relative z-10 shadow-inner">
-                                            <span class="text-[9px] font-black uppercase text-slate-300 block mb-0.5 tracking-wider">💥 If They Disappear:</span>
+                                            <span class="text-[9px] font-black uppercase text-slate-300 block mb-0.5 tracking-wider">💥 ${t.lblDoomsday}</span>
                                             <p class="text-slate-400 text-[11px] leading-relaxed">"${c.x}"</p>
                                         </div>
                                     </div>
@@ -581,7 +690,7 @@
                                     <div class="bg-emerald-50/80 p-3 rounded-lg border border-emerald-100">
                                         <div class="flex items-center gap-1.5 mb-1">
                                             <span class="text-base">⭐</span>
-                                            <span class="text-[10px] font-black uppercase text-emerald-700 tracking-wider">Why We Love It</span>
+                                            <span class="text-[10px] font-black uppercase text-emerald-700 tracking-wider">${t.lblMerit}</span>
                                         </div>
                                         <p class="text-emerald-900 text-xs font-medium leading-relaxed">${c.m}</p>
                                     </div>
@@ -590,7 +699,7 @@
                                     <div class="bg-rose-50/50 p-3 rounded-lg border border-rose-100">
                                         <div class="flex items-center gap-1.5 mb-1">
                                             <span class="text-base">⚠️</span>
-                                            <span class="text-[10px] font-black uppercase text-rose-600 tracking-wider">The Catch</span>
+                                            <span class="text-[10px] font-black uppercase text-rose-600 tracking-wider">${t.lblRisk}</span>
                                         </div>
                                         <p class="text-rose-800 text-xs font-medium leading-relaxed">${c.k}</p>
                                     </div>
@@ -614,6 +723,7 @@
                 lblReturn: "Market Return", lblDeadline: "Deadline", lblSwr: "SWR:",
                 lblGoal: "Target Nest Egg",
                 lblYears: "Years", yrs: "YRS",
+                btnMath: "Math",
                 thPay: "Savings", thInvested: "Rate %", thRet: "Return",
                 tInv: "Investing", tAt: "at", tRet: "returns", tWith: " (with ", tSaved: " saved)",
                 fiLine: "<strong class='text-black text-lg md:text-2xl font-black'>F</strong>inancial <strong class='text-black text-lg md:text-2xl font-black'>I</strong>ndependence in:",
@@ -622,6 +732,15 @@
                 promptFail: "⚠️ Extend Deadline<br><span class='text-[7px] md:text-[10px] text-rose-500'>OR Increase Savings</span>",
                 lblNever: "NEVER", lblFI: "FI",
                 btnPicks: "Eush Picks",
+                picksBannerTitle: "🔥 Eush Picks: The Conviction List",
+                picksBannerDesc: "A curated list of global assets ranked purely by the strength of their business moat and execution reality. Built for the everyday salaryman.",
+                pitchTitle: "Found a hidden moat?",
+                pitchDesc: "Pitch your highest conviction asset. If the thesis survives the Panel of Experts, it makes the tier list.",
+                pitchBtn: "Pitch an Asset",
+                lblMoat: "The Unfair Advantage",
+                lblDoomsday: "If They Disappear:",
+                lblMerit: "Why We Love It",
+                lblRisk: "The Catch",
                 captions: {
                     5: "Boring but Safe<br><span class='font-normal text-[7px] md:text-[10px] opacity-80'>(Gov Bonds, Fixed Dep.)</span>", 
                     10: "S&P 500: Reliable<br><span class='font-normal text-[7px] md:text-[10px] opacity-80'>(VOO, AAPL, MSFT)</span>", 
@@ -652,6 +771,7 @@
                 lblReturn: "预期回报", lblDeadline: "目标年限", lblSwr: "提取率:",
                 lblGoal: "目标金额",
                 lblYears: "年", yrs: "年",
+                btnMath: "计算器",
                 thPay: "储蓄率", thInvested: "(%)", thRet: "回报",
                 tInv: "每月投资", tAt: "以", tRet: "的回报率", tWith: " (已有 ", tSaved: " 储备)",
                 fiLine: "<strong class='text-black text-lg md:text-2xl font-black'>实现财务自由</strong> 需要:",
@@ -660,6 +780,15 @@
                 promptFail: "⚠️ 延长期限<br><span class='text-[7px] md:text-[10px] text-rose-500'>或 提高储蓄率</span>",
                 lblNever: "无望", lblFI: "达标",
                 btnPicks: "Eush 精选",
+                picksBannerTitle: "🔥 Eush 精选：核心信念清单",
+                picksBannerDesc: "基于商业护城河强度和执行现实的全球资产精选排名。专为普通打工人打造。",
+                pitchTitle: "发现了隐藏的护城河？",
+                pitchDesc: "推荐你最看好的资产。如果逻辑能经受住专家团的审查，它将登上此榜单。",
+                pitchBtn: "推荐资产",
+                lblMoat: "不公平优势",
+                lblDoomsday: "如果它们消失：",
+                lblMerit: "为什么看好它",
+                lblRisk: "潜在风险",
                 captions: {
                     5: "无聊但安全<br><span class='font-normal text-[7px] md:text-[10px] opacity-80'>(国债，定期存款)</span>", 
                     10: "标普500: 稳健<br><span class='font-normal text-[7px] md:text-[10px] opacity-80'>(VOO, 苹果, 微软)</span>", 
@@ -697,6 +826,7 @@
         const valReturn = document.getElementById('valReturn'), numReturn = document.getElementById('numReturn');
         const valTarget = document.getElementById('valTarget'), numTarget = document.getElementById('numTarget');
         const valSwr = document.getElementById('valSwr'), swrDisplay = document.getElementById('swrDisplay');
+        const netCashFlowDisplay = document.getElementById('netCashFlowDisplay');
         
         const wittyCaption = document.getElementById('wittyCaption');
         const deadlinePrompt = document.getElementById('deadlinePrompt');
@@ -737,9 +867,20 @@
             document.getElementById('ui-t-with').innerText = t.tWith;
             document.getElementById('ui-t-saved').innerText = t.tSaved;
             document.getElementById('ui-fi-line').innerHTML = t.fiLine;
+            document.getElementById('btn-view-calc').innerText = t.btnMath;
             document.getElementById('btn-view-ranks').innerText = t.btnPicks;
 
+            document.getElementById('picks-banner-title').innerText = t.picksBannerTitle;
+            document.getElementById('picks-banner-desc').innerText = t.picksBannerDesc;
+            document.getElementById('pitch-title').innerText = t.pitchTitle;
+            document.getElementById('pitch-desc').innerText = t.pitchDesc;
+            document.getElementById('pitch-btn').innerText = t.pitchBtn;
+
             langToggleBtn.innerText = currentLang === 'en' ? '中' : 'EN';
+            
+            if(!document.getElementById('view-ranks').classList.contains('view-hidden')) {
+                renderConvictions();
+            }
         }
 
         langToggleBtn.addEventListener('click', () => {
@@ -860,6 +1001,9 @@
 
             let exactProjectedYears = annualExpenses > 0 ? calculateYearsAbsolute(monthlySavings, fiTarget, r, totalStash) : (income > 0 ? 0 : Infinity);
             
+            // Set Net Cash Flow Display
+            netCashFlowDisplay.innerText = fmtCurrency(monthlySavings);
+
             // Set Target Amount text
             document.getElementById('sumTargetAmount').innerText = fmtCurrency(Math.round(fiTarget));
 
