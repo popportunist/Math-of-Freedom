@@ -82,6 +82,18 @@
         .animate-fail { animation: pulse-ring-fail 2s infinite; }
         .pop-text { transform: scale(1.15); color: #e11d48; transition: all 0.2s ease-out; }
 
+        /* Roast Modal Spinner */
+        .roast-spinner {
+            border: 3px solid rgba(251, 191, 36, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #f59e0b;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 12px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* Tier Visual Weight Animations */
         @keyframes gold-shimmer {
             0% { background-position: -200% center; }
@@ -234,29 +246,39 @@
             <!-- Summary Dashboard -->
             <div id="summaryDashboard" class="p-3 md:p-4 flex flex-row items-center justify-between border-b shadow-md transition-colors duration-300 flex-shrink-0 relative overflow-hidden">
                 <div class="text-left flex-1 pr-1 z-10 flex flex-col justify-center">
-                    <p id="ui-proj-lbl" class="text-[10px] md:text-[13px] font-medium leading-tight text-slate-700 mb-2">
+                    <p id="ui-proj-lbl" class="text-[10px] md:text-[13px] font-medium leading-tight text-slate-700 mb-1">
                         <span id="ui-t-inv">Investing</span> <span id="sumSavingsCurrency" class="font-black text-sky-700">$6,000/mo</span> <span class="opacity-70">(<span id="sumSavingsPct">60</span>%)</span> <span id="ui-t-at">at</span> <span id="sumReturn" class="font-black text-rose-600">10%</span> <span id="ui-t-ret">returns</span><span id="sumStashText" class="hidden"><span id="ui-t-with"> (with </span><span id="sumStashYears" class="font-bold text-purple-600">0 yrs</span><span id="ui-t-saved"> saved)</span></span>,
                     </p>
                     
-                    <!-- HIGH VISUAL WEIGHT TARGET PILL -->
-                    <div class="flex items-center gap-2 md:gap-3 my-1.5 md:my-2 inline-flex bg-gradient-to-r from-emerald-100 to-teal-50 border-2 border-emerald-400 px-3 md:px-5 py-1.5 md:py-2 rounded-xl shadow-md ring-4 ring-emerald-500/20 transform transition-all w-max">
-                        <span class="text-[10px] md:text-[13px] font-black text-emerald-800 uppercase tracking-wider">🎯 <span id="ui-lbl-goal">Target Nest Egg</span>:</span>
-                        <span id="sumTargetAmount" class="font-black text-emerald-600 text-[14px] md:text-[20px] tracking-tight drop-shadow-sm">$0</span>
+                    <!-- HIGH VISUAL WEIGHT TARGET PILL & PROGRESS BAR -->
+                    <div class="flex items-center gap-1.5 md:gap-2 my-1 inline-flex bg-gradient-to-r from-emerald-100 to-teal-50 border border-emerald-300 px-2.5 md:px-4 py-1 md:py-1.5 rounded-lg shadow-sm ring-2 ring-emerald-500/10 transform transition-all w-max">
+                        <span class="text-[9px] md:text-[11px] font-black text-emerald-800 uppercase tracking-wider">🎯 <span id="ui-lbl-goal">Target Nest Egg</span>:</span>
+                        <span id="sumTargetAmount" class="font-black text-emerald-600 text-[12px] md:text-[16px] tracking-tight drop-shadow-sm">$0</span>
+                    </div>
+                    
+                    <!-- Stash Progress Bar -->
+                    <div class="w-full max-w-[180px] md:max-w-[220px] bg-emerald-200/50 rounded-full h-1.5 mt-0.5 mb-1.5 overflow-hidden shadow-inner">
+                        <div id="stashProgressBar" class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" style="width: 0%"></div>
                     </div>
 
                     <p id="ui-fi-line" class="text-[11px] md:text-[15px] text-slate-800 leading-tight mt-1">
                         <strong class="text-black text-lg md:text-2xl font-black">F</strong>inancial <strong class="text-black text-lg md:text-2xl font-black">I</strong>ndependence in:
                     </p>
                 </div>
-                <div class="flex items-center gap-1.5 md:gap-3 z-10 bg-white/60 px-3 py-2 rounded-xl backdrop-blur-sm shadow-md border border-white/50">
-                    <div id="sumYears" class="text-4xl md:text-6xl font-black tracking-tighter leading-none text-shadow-sm text-slate-800 drop-shadow-sm">10.3</div>
+                <div class="flex items-center gap-1.5 md:gap-2 z-10 bg-white/60 px-2.5 py-1.5 md:py-2 rounded-xl backdrop-blur-sm shadow-sm border border-white/50">
+                    <div id="sumYears" class="text-3xl md:text-4xl font-black tracking-tighter leading-none text-shadow-sm text-slate-800 drop-shadow-sm">10.3</div>
                     <div class="flex flex-col justify-center items-start">
-                        <span id="ui-lbl-years" class="text-[10px] md:text-[12px] font-black uppercase tracking-widest text-slate-600 leading-none mb-1">Years</span>
-                        <span id="sumStatus" class="px-2 py-0.5 text-[8px] md:text-[10px] font-black rounded uppercase tracking-wider whitespace-nowrap text-white shadow-sm leading-tight flex flex-col items-center">Status</span>
+                        <span id="ui-lbl-years" class="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-slate-600 leading-none mb-0.5">Years</span>
+                        <span id="sumStatus" class="px-1.5 py-0.5 text-[7px] md:text-[9px] font-black rounded uppercase tracking-wider whitespace-nowrap text-white shadow-sm leading-tight flex flex-col items-center">Status</span>
                     </div>
                 </div>
                 <div class="absolute -right-8 -bottom-10 opacity-5 md:opacity-10 text-[140px] leading-none pointer-events-none">🎯</div>
             </div>
+
+            <!-- Ask AI to Roast My Plan Button -->
+            <button id="roastBtn" class="w-full bg-slate-800 text-amber-400 py-1.5 md:py-2 text-[10px] md:text-xs uppercase tracking-widest font-black hover:bg-slate-700 transition-colors flex justify-center items-center gap-2 border-b border-slate-700 shadow-inner flex-shrink-0 z-10">
+                ✨ <span id="ui-roast-btn">Ask AI to Roast My Plan</span> ✨
+            </button>
 
             <!-- Matrix Table -->
             <div class="table-container bg-slate-50 relative flex-grow">
@@ -290,6 +312,23 @@
             </div>
         </div>
         
+    </div>
+
+    <!-- AI Roast Modal -->
+    <div id="roastModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] hidden flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full border-2 border-slate-200 flex flex-col overflow-hidden transform transition-all">
+            <div class="bg-slate-800 text-white p-3 flex justify-between items-center shadow-md z-10">
+                <h2 id="ui-roast-title" class="font-black tracking-tight text-sm uppercase text-amber-400">🔥 AI Plan Roast</h2>
+                <button id="closeRoastBtn" class="text-slate-400 hover:text-white font-black px-2 text-lg leading-none">&times;</button>
+            </div>
+            <div class="p-6 text-slate-700 text-sm md:text-base font-medium leading-relaxed min-h-[120px] flex flex-col items-center justify-center bg-slate-50 relative">
+                <div id="roastLoading" class="hidden flex-col items-center w-full">
+                    <div class="roast-spinner"></div>
+                    <p id="ui-roast-loading" class="text-xs text-amber-600 font-bold uppercase tracking-widest">Consulting the Oracle...</p>
+                </div>
+                <div id="roastContent" class="w-full text-center text-slate-800 italic"></div>
+            </div>
+        </div>
     </div>
 
     <!-- YouTube Launch Toast -->
@@ -849,6 +888,10 @@
             
             // Set Target Amount text
             document.getElementById('sumTargetAmount').innerText = fmtCurrency(Math.round(fiTarget));
+            
+            // Set Progress Bar width
+            const progressPct = fiTarget > 0 ? Math.min(100, (totalStash / fiTarget) * 100) : 0;
+            document.getElementById('stashProgressBar').style.width = progressPct + '%';
 
             sumSavingsCurrency.innerText = fmtCurrency(monthlySavings) + "/mo";
             sumSavingsPct.innerText = (savingsRate * 100).toFixed(0);
@@ -860,7 +903,7 @@
             } else { sumStashText.classList.add('hidden'); }
             
             if (exactProjectedYears === 0) sumYears.innerText = "0";
-            else if (exactProjectedYears === Infinity) sumYears.innerHTML = "<span class='text-3xl md:text-5xl'>∞</span>";
+            else if (exactProjectedYears === Infinity) sumYears.innerHTML = "<span class='text-3xl md:text-4xl'>∞</span>";
             else if (exactProjectedYears < 2) sumYears.innerText = "< 2";
             else if (exactProjectedYears < 3) sumYears.innerText = "< 3";
             else sumYears.innerText = exactProjectedYears.toFixed(1);
@@ -869,13 +912,13 @@
                 summaryDashboard.className = "bg-emerald-50 border-l-8 border-emerald-500 p-3 md:p-4 flex flex-row items-center justify-between border-b shadow-md transition-colors duration-300 flex-shrink-0 relative overflow-hidden";
                 sumStatus.innerHTML = t.statusAchieved;
                 sumStatus.className = "px-2 py-0.5 text-[8px] md:text-[10px] font-black rounded uppercase tracking-wider whitespace-nowrap bg-emerald-600 text-white shadow-sm leading-none";
-                sumYears.className = "text-4xl md:text-6xl font-black tracking-tighter leading-none text-emerald-700 drop-shadow-sm";
+                sumYears.className = "text-3xl md:text-4xl font-black tracking-tighter leading-none text-emerald-700 drop-shadow-sm";
                 deadlinePrompt.innerHTML = `<span class="text-emerald-600">${t.promptTrack}</span>`;
             } else {
                 summaryDashboard.className = "bg-rose-50 border-l-8 border-rose-500 p-3 md:p-4 flex flex-row items-center justify-between border-b shadow-md transition-colors duration-300 flex-shrink-0 relative overflow-hidden";
                 sumStatus.innerHTML = `⚠️ MISSED DEADLINE<div class="mt-1 font-bold text-[6px] md:text-[8px] normal-case opacity-90 leading-tight">1. Extend Deadline<br>2. Increase Savings</div>`;
                 sumStatus.className = "px-2 py-1 text-[8px] md:text-[10px] font-black rounded uppercase tracking-wider whitespace-nowrap bg-rose-600 text-white shadow-sm leading-tight flex flex-col items-center text-center";
-                sumYears.className = "text-4xl md:text-6xl font-black tracking-tighter leading-none text-rose-700 drop-shadow-sm";
+                sumYears.className = "text-3xl md:text-4xl font-black tracking-tighter leading-none text-rose-700 drop-shadow-sm";
                 deadlinePrompt.innerHTML = `<span class="text-rose-600">${t.promptFail}</span>`;
             }
 
@@ -903,8 +946,48 @@
                 return row;
             }).join('');
             dispTotalStash.innerText = fmtK(totalStash);
+            
+            updateURL();
         }
 
+        // --- URL State Router ---
+        let urlTimeout;
+        function updateURL() {
+            clearTimeout(urlTimeout);
+            urlTimeout = setTimeout(() => {
+                const p = new URLSearchParams();
+                p.set('i', valIncome.value);
+                p.set('e', valExpense.value);
+                p.set('sr', valSr.value);
+                p.set('c', valCash.value);
+                p.set('p', valPortfolio.value);
+                p.set('r', valReturn.value);
+                p.set('t', valTarget.value);
+                p.set('swr', valSwr.value);
+                try {
+                    window.history.replaceState({}, '', `${window.location.pathname}?${p.toString()}`);
+                } catch (e) {
+                    console.warn("URL state routing is disabled in this sandboxed environment.");
+                }
+            }, 500);
+        }
+
+        function loadFromURL() {
+            const p = new URLSearchParams(window.location.search);
+            if(!p.toString()) return;
+            
+            if(p.has('i')) { valIncome.value = p.get('i'); numIncome.value = fmtNum(parseNum(p.get('i'))); }
+            if(p.has('e')) { valExpense.value = p.get('e'); numExpense.value = fmtNum(parseNum(p.get('e'))); }
+            if(p.has('sr') && !p.has('e')) { valSr.value = p.get('sr'); numSr.value = parseNum(p.get('sr')).toFixed(0); }
+            if(p.has('c')) { valCash.value = p.get('c'); numCash.value = fmtNum(parseNum(p.get('c'))); }
+            if(p.has('p')) { valPortfolio.value = p.get('p'); numPortfolio.value = fmtNum(parseNum(p.get('p'))); }
+            if(p.has('r')) { valReturn.value = p.get('r'); numReturn.value = parseNum(p.get('r')); }
+            if(p.has('t')) { valTarget.value = p.get('t'); numTarget.value = parseNum(p.get('t')); }
+            if(p.has('swr')) { valSwr.value = p.get('swr'); swrDisplay.innerText = parseFloat(p.get('swr')).toFixed(1) + "%"; }
+        }
+
+        // Init
+        loadFromURL();
         applyTranslations();
         wittyCaption.innerHTML = i18n[currentLang].captions[parseInt(numReturn.value)];
         buildApp();
