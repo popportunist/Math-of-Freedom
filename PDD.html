@@ -112,7 +112,7 @@
         ul { margin-bottom: 20px; padding-left: 20px; }
         li { margin-bottom: 10px; }
 
-        /* --- VISUAL 1: Supply Chain Flowchart --- */
+        /* --- VISUALS --- */
         .flowchart-wrapper {
             display: flex;
             justify-content: space-between;
@@ -138,7 +138,6 @@
         .flow-arrow-down { text-align: center; color: var(--warn-red); font-size: 1.2em; margin: -2px 0; }
         .flow-arrow-thick { text-align: center; color: var(--pdd-green); font-size: 2em; margin: 10px 0; font-weight: bold; }
 
-        /* --- VISUAL 2: Network Moat (Groupon on Steroids) --- */
         .network-graphic {
             display: flex;
             align-items: center;
@@ -170,7 +169,6 @@
         .arrow-icon { color: var(--pdd-green); font-weight: bold; font-size: 1.5em; }
         .vs-box { flex: 1; margin-left: 20px; padding: 20px; background: var(--warn-red-light); border: 1px dashed var(--warn-red); text-align: center; border-radius: 8px; box-sizing: border-box; }
 
-        /* --- VISUAL 3: Singapore Simulation --- */
         .sg-graphic {
             display: flex;
             align-items: flex-end;
@@ -183,16 +181,13 @@
             border: 1px solid var(--border-color);
             border-bottom: 4px solid #d0d7de;
         }
-        /* Stylized MBS */
         .mbs-wrapper { display: flex; flex-direction: column; align-items: center; }
         .mbs-roof { width: 120px; height: 15px; background: #888; border-radius: 10px; margin-bottom: -5px; z-index: 2; }
         .mbs-pillars { display: flex; gap: 10px; }
         .mbs-pillar { width: 20px; height: 80px; background: #999; }
-        /* Stylized Mountain */
         .mountain-wrapper { text-align: center; }
         .mountain {
-            width: 0;
-            height: 0;
+            width: 0; height: 0;
             border-left: 90px solid transparent;
             border-right: 90px solid transparent;
             border-bottom: 160px solid var(--pdd-green);
@@ -200,16 +195,9 @@
         }
         .mountain::after {
             content: "4.5M TONNES SAVED";
-            position: absolute;
-            top: 100px;
-            left: -60px;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 0.7em;
-            width: 120px;
+            position: absolute; top: 100px; left: -60px; color: #ffffff; font-weight: bold; font-size: 0.7em; width: 120px;
         }
 
-        /* --- VISUAL 4: EV vs Replacement Bar Chart --- */
         .chart-container {
             display: flex;
             justify-content: space-around;
@@ -230,36 +218,23 @@
         .bar-rep-cash { height: 30%; background-color: var(--warn-red); color: #FFF; }
         .bar-label { margin-top: 15px; font-size: 0.9em; font-weight: bold; text-align: center; color: var(--text-muted); }
 
-        /* ========================================= */
-        /* MOBILE RESPONSIVE OPTIMIZATIONS           */
-        /* ========================================= */
         @media (max-width: 768px) {
             .container { padding: 15px 15px 40px 15px; }
             .card { padding: 20px; }
             h1 { font-size: 1.8em; }
             h2 { font-size: 1.4em; }
-            
-            /* Flowchart: Stack vertically on mobile */
             .flowchart-wrapper { flex-direction: column; gap: 40px; padding: 15px; }
             .flow-col { width: 100%; }
-            .flow-box { font-size: 0.85em; padding: 12px; }
-
-            /* Network Graphic: Stack vertically */
             .network-graphic { flex-direction: column; gap: 30px; padding: 20px 15px; }
             .node-container { flex-direction: column; gap: 15px; width: 100%; }
             .arrow-icon { transform: rotate(90deg); margin: 5px 0; }
             .vs-box { margin-left: 0; width: 100%; padding: 15px; }
-
-            /* Singapore Simulation: Resize elements */
             .sg-graphic { flex-direction: column; align-items: center; gap: 40px; padding: 30px 15px; }
             .mountain { border-left-width: 70px; border-right-width: 70px; border-bottom-width: 120px; }
             .mountain::after { top: 70px; left: -50px; font-size: 0.65em; width: 100px; }
-
-            /* EV Bar Chart: Keep side-by-side but shrink widths and fonts */
             .chart-container { height: 280px; padding: 15px 10px; gap: 10px; justify-content: space-between; }
             .bar-wrapper { width: 48%; }
             .bar { font-size: 0.65em; padding: 5px; }
-            .bar-ev span:first-child, .bar-rep-time span:first-child, .bar-rep-cash span:first-child { font-size: 1.1em !important; }
             .bar-label { font-size: 0.75em; margin-top: 10px; }
         }
     </style>
@@ -280,7 +255,6 @@
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
       pageLanguage: 'en', 
-      // Added 'en' specifically to the list to help the widget realize it's an option
       includedLanguages: 'en,zh-CN,zh-TW',
       layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       autoDisplay: false
@@ -300,15 +274,17 @@ function googleTranslateElementInit() {
         <p class="efficiency" style="font-size: 1.2em; margin: 10px 0 5px 0;">Enterprise Value: ~ USD 76.5 Billion (Net of USD 59.5B Cash)</p>
     </div>
 
+    <!-- WHO SHOULD READ THIS? -->
     <div style="background: var(--pdd-green-light); border-left: 4px solid var(--pdd-green); padding: 20px; border-radius: 4px; margin-bottom: 30px; color: #1f2328;">
         <strong style="color: var(--pdd-green); font-size: 1.1em; text-transform: uppercase;">Who Should Read This?</strong>
-        <ul style="margin-top: 10px; margin-bottom: 0;">
+        <ul style="margin-top: 10px; margin-bottom: 0; font-size: 0.95em;">
             <li><strong>Long-Term Capital Allocators:</strong> Investors focused on structural supply chain monopolies and multi-year compounding horizons.</li>
             <li><strong>Business Researchers & Analysts:</strong> Individuals seeking to understand PDD's underlying mechanics for future watchlist consideration.</li>
             <li style="color: var(--warn-red);"><strong>NOT FOR Short-Term Traders:</strong> Those attempting to front-run quarterly earnings or trade geopolitical headline noise will find this thesis incompatible with their timelines.</li>
         </ul>
     </div>
 
+    <!-- EXECUTIVE SUMMARY -->
     <div class="card">
         <h2>Executive Summary: The "First of its Kind" Disruptor</h2>
         <p>To understand PDD in layman's terms, you must look at the history of "Big Tech" disruptors like Uber or Grab. Before Grab, a passenger had to call a dispatcher (the middleman) who then radioed a taxi. Grab built an algorithmic bridge directly between the rider and the driver, making the dispatcher extinct.</p>
@@ -322,6 +298,7 @@ function googleTranslateElementInit() {
         <p>By engineering the complete extinction of the wholesale middleman, PDD has achieved a <span class="efficiency">~4.9 to 5.1-year payback period</span> on its domestic cash flows alone, while holding enough cash to fund its own global expansion indefinitely.</p>
     </div>
 
+    <!-- SECTION I: MOAT -->
     <div class="card">
         <h2>Section I: Demystifying the Moat</h2>
         <p><em>"If they don't own trucks and warehouses, what is their moat?"</em></p>
@@ -339,6 +316,7 @@ function googleTranslateElementInit() {
         <p><em>How PDD uses it:</em> Imagine walking into a wholesale warehouse. You want a 50% discount on a TV, but the manager says you must buy 10 TVs to get that price. Instead of walking away, you pull out your phone, text 9 friends, and say, "If we all buy this right now, we get half off."</p>
         <p>That is PDD's "Team Purchase" (Pin) model. For those who remember the early 2010s, it is effectively <strong>"Groupon on Steroids"</strong>—but instead of waiting for a website to offer a daily coupon for a local spa, the users <em>themselves</em> initiate the coupon for everyday necessities, and the algorithm instantly matches them with millions of others doing the exact same thing.</p>
         
+        <!-- VISUAL 2: Network Graphic -->
         <div class="network-graphic">
             <div class="node-container">
                 <div class="node n1">1 User</div>
@@ -359,12 +337,13 @@ function googleTranslateElementInit() {
         <p>Vegetables and fruits are highly price-sensitive commodities. By offering them at rock-bottom prices directly from the farm, PDD essentially "owns" this segment of the Chinese consumer's wallet. Because fresh food is a necessity, consumers must open the app 2 to 3 times a week.</p>
         <ul>
             <li><strong>Free CAC (Customer Acquisition Cost):</strong> CAC is the money a company spends on ads to get one new user. For PDD, this is effectively zero for retention. This is <span class="efficiency">FOREVER FREE Marketing</span>. PDD does not need to spend billions on ads to keep these users; their biological need to eat does it for them. The cost of leaving the app is simply too high—it equates to a 30% tax on a family's daily food budget.</li>
-            <li><strong>The Visual Cross-Sell:</strong> Human psychology processes visual density as a "treasure hunt." When a user opens the app for cheap apples, they enter a highly gamified, visually stimulating feed. The algorithms strike right as the dopamine from the grocery "deal" hits, placing a USD 15 high-margin blender or a piece of apparel in their view. The cheap groceries act as the hook; the discretionary goods generate the massive profits.</li>
+            <li><strong>The Visual Cross-Sell:</strong> Human psychology processes visual density as a "treasure hunt." When a user opens the app for cheap apples, they enter a highly gamified, visually stimulating feed. The algorithms strike right as the dopamine from the grocery "deal" hits, placing a high-margin blender or a piece of apparel in their view. The cheap groceries act as the hook; the discretionary goods generate the massive profits.</li>
         </ul>
 
         <h3>"How does PDD actually make money by cutting out the middleman?"</h3>
         <p>Traditional retail is a Margin Graveyard. PDD is a direct data highway.</p>
 
+        <!-- VISUAL 1: Flowchart -->
         <div class="flowchart-wrapper">
             <div class="flow-col">
                 <h4 style="margin-top:0; text-align:center;">The "Old World" (5 Layers)</h4>
@@ -396,6 +375,7 @@ function googleTranslateElementInit() {
         <p class="efficiency" style="font-style: italic; margin-top: 15px;">What happens when the world's factory floor gets a direct algorithmic API to 1.5 billion wallets? The concept of "markup" ceases to exist.</p>
     </div>
 
+    <!-- SECTION II: SOCIAL GOOD -->
     <div class="card">
         <h2>Section II: The Agricultural Cloud & Political Shield</h2>
         <p><em>"How does an app prevent millions of tonnes of food from rotting?"</em></p>
@@ -405,6 +385,7 @@ function googleTranslateElementInit() {
             <li><strong>The Business Result:</strong> This leads to <span class="efficiency">Zero Inventory Spoilage</span>. In traditional retail, 30% of fruit rots. In PDD’s system, that 30% waste is converted into Profit Margin.</li>
         </ul>
 
+        <!-- VISUAL 3: Singapore Simulation -->
         <h3 style="margin-top: 40px;">The Singapore Simulation (Social Good as Armor)</h3>
         <p>To put this in perspective, the food wastage PDD eliminates each year is estimated at <strong>4.5 Million Tonnes</strong>.</p>
         
@@ -433,6 +414,7 @@ function googleTranslateElementInit() {
         </div>
     </div>
 
+    <!-- SECTION III: VALUATION -->
     <div class="card">
         <h2>Section III: Enterprise Value & Replacement Cost Parallax</h2>
         <p><em>"Is PDD Expensive? Let's Price the Alternative."</em></p>
@@ -454,7 +436,9 @@ function googleTranslateElementInit() {
             </li>
         </ul>
 
+        <!-- VISUAL 4: EV vs Replacement Bar Chart -->
         <div class="chart-container">
+            <!-- Left Bar -->
             <div class="bar-wrapper">
                 <div class="bar bar-ev">
                     <span style="font-size: 1.2em;">USD 76.5B</span>
@@ -463,6 +447,7 @@ function googleTranslateElementInit() {
                 <div class="bar-label">PDD Valued Today</div>
             </div>
             
+            <!-- Right Bar (Stacked) -->
             <div class="bar-wrapper" style="height: 120%;">
                 <div class="bar bar-rep-time">
                     <span style="font-size: 1.4em;">11 YEARS</span>
@@ -480,6 +465,7 @@ function googleTranslateElementInit() {
         <p><strong>The EV Reality Check:</strong> For an EV of USD 76.5 Billion, you are paying a mere <span class="efficiency">~3x multiple on the bare-bones capital replacement cost</span>, and receiving a fully mature, wildly profitable monopoly with a 10-year head start and a free global expansion engine (Temu). At a 5-year EV/FCF payback, PDD is arguably the cheapest high-quality asset in the global public markets.</p>
     </div>
 
+    <!-- SECTION IV: COMPETITORS -->
     <div class="card">
         <h2>Section IV: The Competitor Paradox</h2>
         <p><em>"Why can't Amazon or Meta just copy this?"</em></p>
@@ -491,6 +477,7 @@ function googleTranslateElementInit() {
         </ul>
     </div>
 
+    <!-- SECTION V: BEN FEN -->
     <div class="card">
         <h2>Section V: The Invisible Moat - "Ben Fen" (本分)</h2>
         <p><em>"Who is actually steering this ship, and can we trust them with our capital?"</em></p>
@@ -532,6 +519,7 @@ function googleTranslateElementInit() {
         <p><strong>Why it matters to a Shareholder:</strong> If you are a short-term trader looking for hype, <em>Ben Fen</em> is infuriating. PDD management refuses to do stock promotions, rarely gives forward guidance, and ignores Wall Street's demands for quarter-to-quarter cheerleading. However, if you are a long-term investor, <em>Ben Fen</em> is the ultimate alignment. It means management is acting like silent, ruthless engineers focused entirely on compounding intrinsic value and expanding the moat, rather than temporarily pumping the share price. They don't talk; they execute.</p>
     </div>
 
+    <!-- SECTION VI: RETURNS -->
     <div class="card">
         <h2>Section VI: The Timeline of Returns & Long-Termism</h2>
         <p><em>"How long until the market recognizes this value?"</em></p>
@@ -551,6 +539,33 @@ function googleTranslateElementInit() {
         <p>To see structural, undeniable returns, an investor must align their holding period with this <strong>5-year business compounding cycle</strong>. Give the company 60 months to let the cash reserves swell, allow the global logistics network to mature, and let the mathematical gravity of their free cash flow completely overwhelm any short-term geopolitical noise.</p>
     </div>
 
+    <!-- THE LAYMAN'S SUMMARY SECTION -->
+    <div class="card" style="background: #f8f9fa; border: 2px solid var(--pdd-green);">
+        <h2 style="border:none; margin-top: 0;">The Layman's Summary</h2>
+        <p style="font-weight: bold; margin-bottom: 20px;">Here is the PDD business engine in plain English:</p>
+        
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li style="margin-bottom: 20px;">
+                <span style="font-size: 1.5em; vertical-align: middle; margin-right: 10px;">🏗️</span>
+                <strong>The Industrial Pipe:</strong> PDD isn't a digital "mall" like Amazon. It is an industrial pipe connecting the factory machine directly to your doorstep. They removed the middleman "tax" that has existed for centuries.
+            </li>
+            <li style="margin-bottom: 20px;">
+                <span style="font-size: 1.5em; vertical-align: middle; margin-right: 10px;">🧲</span>
+                <strong>The Magnet Mall:</strong> Most apps have to pay money to get you to visit. PDD uses the "survival instinct" (cheap groceries) as a magnet. You come for the bread, and while you're there, the algorithm shows you a circus of cheap gadgets you didn't know you wanted. This makes their marketing effectively "free."
+            </li>
+            <li style="margin-bottom: 20px;">
+                <span style="font-size: 1.5em; vertical-align: middle; margin-right: 10px;">🛡️</span>
+                <strong>The State Armor:</strong> PDD is the "teacher's pet" of the Chinese state. Why? Because they fix the two biggest problems in the country: helping poor farmers make more money and helping city workers save more money. This makes them politically unkillable.
+            </li>
+            <li style="margin-bottom: 20px;">
+                <span style="font-size: 1.5em; vertical-align: middle; margin-right: 10px;">📉</span>
+                <strong>The Deal of the Decade:</strong> Imagine buying a high-tech farm for USD 76. Every single year, that farm produces USD 15 in pure profit. In 5 years, you've made all your money back, and you still own the world's most advanced farm for free.
+            </li>
+        </ul>
+        <p class="efficiency" style="text-align: center; margin-top: 20px; font-style: italic;">"PDD is a civilizational upgrade disguised as a discount app."</p>
+    </div>
+
+    <!-- CONCLUSION -->
     <div style="border-top: 2px solid var(--border-color); padding-top: 30px; margin-top: 40px;">
         <h2 style="border:none; text-align: center;">THE VERDICT</h2>
         <p class="text-center" style="font-size: 1.1em;">PDD Holdings is not merely an e-commerce platform. It is a deflationary engine for the global working class, and an infrastructure upgrade for the developing farmer.</p>
