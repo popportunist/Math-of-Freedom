@@ -55,6 +55,12 @@
             text-decoration: underline;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         /* Hide Google Translate top banner if it appears */
         .skiptranslate iframe { display: none !important; }
         body { top: 0px !important; }
@@ -260,22 +266,24 @@
 </head>
 <body>
 
-<!-- TOP NAVIGATION & TRANSLATION -->
 <div class="top-nav">
     <a href="https://popportunist.github.io/Math-of-Freedom" class="back-link">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Back to Math of Freedom
     </a>
-    <!-- Google Translate Element -->
-    <div id="google_translate_element"></div>
+    <div class="nav-right">
+        <div id="google_translate_element"></div>
+    </div>
 </div>
 
 <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
       pageLanguage: 'en', 
-      includedLanguages: 'zh-CN,zh-TW',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      // Added 'en' specifically to the list to help the widget realize it's an option
+      includedLanguages: 'en,zh-CN,zh-TW',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
   }, 'google_translate_element');
 }
 </script>
@@ -292,7 +300,6 @@ function googleTranslateElementInit() {
         <p class="efficiency" style="font-size: 1.2em; margin: 10px 0 5px 0;">Enterprise Value: ~ USD 76.5 Billion (Net of USD 59.5B Cash)</p>
     </div>
 
-    <!-- WHO SHOULD READ THIS? -->
     <div style="background: var(--pdd-green-light); border-left: 4px solid var(--pdd-green); padding: 20px; border-radius: 4px; margin-bottom: 30px; color: #1f2328;">
         <strong style="color: var(--pdd-green); font-size: 1.1em; text-transform: uppercase;">Who Should Read This?</strong>
         <ul style="margin-top: 10px; margin-bottom: 0;">
@@ -302,7 +309,6 @@ function googleTranslateElementInit() {
         </ul>
     </div>
 
-    <!-- EXECUTIVE SUMMARY -->
     <div class="card">
         <h2>Executive Summary: The "First of its Kind" Disruptor</h2>
         <p>To understand PDD in layman's terms, you must look at the history of "Big Tech" disruptors like Uber or Grab. Before Grab, a passenger had to call a dispatcher (the middleman) who then radioed a taxi. Grab built an algorithmic bridge directly between the rider and the driver, making the dispatcher extinct.</p>
@@ -316,7 +322,6 @@ function googleTranslateElementInit() {
         <p>By engineering the complete extinction of the wholesale middleman, PDD has achieved a <span class="efficiency">~4.9 to 5.1-year payback period</span> on its domestic cash flows alone, while holding enough cash to fund its own global expansion indefinitely.</p>
     </div>
 
-    <!-- SECTION I: MOAT -->
     <div class="card">
         <h2>Section I: Demystifying the Moat</h2>
         <p><em>"If they don't own trucks and warehouses, what is their moat?"</em></p>
@@ -334,7 +339,6 @@ function googleTranslateElementInit() {
         <p><em>How PDD uses it:</em> Imagine walking into a wholesale warehouse. You want a 50% discount on a TV, but the manager says you must buy 10 TVs to get that price. Instead of walking away, you pull out your phone, text 9 friends, and say, "If we all buy this right now, we get half off."</p>
         <p>That is PDD's "Team Purchase" (Pin) model. For those who remember the early 2010s, it is effectively <strong>"Groupon on Steroids"</strong>—but instead of waiting for a website to offer a daily coupon for a local spa, the users <em>themselves</em> initiate the coupon for everyday necessities, and the algorithm instantly matches them with millions of others doing the exact same thing.</p>
         
-        <!-- VISUAL 2: Network Graphic -->
         <div class="network-graphic">
             <div class="node-container">
                 <div class="node n1">1 User</div>
@@ -361,7 +365,6 @@ function googleTranslateElementInit() {
         <h3>"How does PDD actually make money by cutting out the middleman?"</h3>
         <p>Traditional retail is a Margin Graveyard. PDD is a direct data highway.</p>
 
-        <!-- VISUAL 1: Flowchart -->
         <div class="flowchart-wrapper">
             <div class="flow-col">
                 <h4 style="margin-top:0; text-align:center;">The "Old World" (5 Layers)</h4>
@@ -393,7 +396,6 @@ function googleTranslateElementInit() {
         <p class="efficiency" style="font-style: italic; margin-top: 15px;">What happens when the world's factory floor gets a direct algorithmic API to 1.5 billion wallets? The concept of "markup" ceases to exist.</p>
     </div>
 
-    <!-- SECTION II: SOCIAL GOOD -->
     <div class="card">
         <h2>Section II: The Agricultural Cloud & Political Shield</h2>
         <p><em>"How does an app prevent millions of tonnes of food from rotting?"</em></p>
@@ -403,7 +405,6 @@ function googleTranslateElementInit() {
             <li><strong>The Business Result:</strong> This leads to <span class="efficiency">Zero Inventory Spoilage</span>. In traditional retail, 30% of fruit rots. In PDD’s system, that 30% waste is converted into Profit Margin.</li>
         </ul>
 
-        <!-- VISUAL 3: Singapore Simulation -->
         <h3 style="margin-top: 40px;">The Singapore Simulation (Social Good as Armor)</h3>
         <p>To put this in perspective, the food wastage PDD eliminates each year is estimated at <strong>4.5 Million Tonnes</strong>.</p>
         
@@ -432,7 +433,6 @@ function googleTranslateElementInit() {
         </div>
     </div>
 
-    <!-- SECTION III: EV VS REPLACEMENT -->
     <div class="card">
         <h2>Section III: Enterprise Value & Replacement Cost Parallax</h2>
         <p><em>"Is PDD Expensive? Let's Price the Alternative."</em></p>
@@ -454,9 +454,7 @@ function googleTranslateElementInit() {
             </li>
         </ul>
 
-        <!-- VISUAL 4: EV vs Replacement Bar Chart -->
         <div class="chart-container">
-            <!-- Left Bar -->
             <div class="bar-wrapper">
                 <div class="bar bar-ev">
                     <span style="font-size: 1.2em;">USD 76.5B</span>
@@ -465,7 +463,6 @@ function googleTranslateElementInit() {
                 <div class="bar-label">PDD Valued Today</div>
             </div>
             
-            <!-- Right Bar (Stacked) -->
             <div class="bar-wrapper" style="height: 120%;">
                 <div class="bar bar-rep-time">
                     <span style="font-size: 1.4em;">11 YEARS</span>
@@ -483,7 +480,6 @@ function googleTranslateElementInit() {
         <p><strong>The EV Reality Check:</strong> For an EV of USD 76.5 Billion, you are paying a mere <span class="efficiency">~3x multiple on the bare-bones capital replacement cost</span>, and receiving a fully mature, wildly profitable monopoly with a 10-year head start and a free global expansion engine (Temu). At a 5-year EV/FCF payback, PDD is arguably the cheapest high-quality asset in the global public markets.</p>
     </div>
 
-    <!-- SECTION IV: COMPETITOR PARADOX -->
     <div class="card">
         <h2>Section IV: The Competitor Paradox</h2>
         <p><em>"Why can't Amazon or Meta just copy this?"</em></p>
@@ -495,7 +491,6 @@ function googleTranslateElementInit() {
         </ul>
     </div>
 
-    <!-- SECTION V: BEN FEN -->
     <div class="card">
         <h2>Section V: The Invisible Moat - "Ben Fen" (本分)</h2>
         <p><em>"Who is actually steering this ship, and can we trust them with our capital?"</em></p>
@@ -537,7 +532,6 @@ function googleTranslateElementInit() {
         <p><strong>Why it matters to a Shareholder:</strong> If you are a short-term trader looking for hype, <em>Ben Fen</em> is infuriating. PDD management refuses to do stock promotions, rarely gives forward guidance, and ignores Wall Street's demands for quarter-to-quarter cheerleading. However, if you are a long-term investor, <em>Ben Fen</em> is the ultimate alignment. It means management is acting like silent, ruthless engineers focused entirely on compounding intrinsic value and expanding the moat, rather than temporarily pumping the share price. They don't talk; they execute.</p>
     </div>
 
-    <!-- SECTION VI: THE TIMELINE OF RETURNS -->
     <div class="card">
         <h2>Section VI: The Timeline of Returns & Long-Termism</h2>
         <p><em>"How long until the market recognizes this value?"</em></p>
@@ -557,7 +551,6 @@ function googleTranslateElementInit() {
         <p>To see structural, undeniable returns, an investor must align their holding period with this <strong>5-year business compounding cycle</strong>. Give the company 60 months to let the cash reserves swell, allow the global logistics network to mature, and let the mathematical gravity of their free cash flow completely overwhelm any short-term geopolitical noise.</p>
     </div>
 
-    <!-- CONCLUSION -->
     <div style="border-top: 2px solid var(--border-color); padding-top: 30px; margin-top: 40px;">
         <h2 style="border:none; text-align: center;">THE VERDICT</h2>
         <p class="text-center" style="font-size: 1.1em;">PDD Holdings is not merely an e-commerce platform. It is a deflationary engine for the global working class, and an infrastructure upgrade for the developing farmer.</p>
