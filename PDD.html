@@ -11,9 +11,9 @@
             --card-bg: #ffffff;
             --text-main: #1f2328;
             --text-muted: #59636e;
-            --pdd-green: #0a7a27; /* Darker, high-contrast green for white bg */
+            --pdd-green: #0a7a27; 
             --pdd-green-light: #e6f4ea;
-            --warn-red: #d1242f;  /* High-contrast red */
+            --warn-red: #d1242f;  
             --warn-red-light: #ffebe9;
             --border-color: #d0d7de;
         }
@@ -26,6 +26,38 @@
             margin: 0;
             padding: 0;
         }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--pdd-green);
+            font-weight: bold;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Hide Google Translate top banner if it appears */
+        .skiptranslate iframe { display: none !important; }
+        body { top: 0px !important; }
 
         .container {
             max-width: 900px;
@@ -71,7 +103,7 @@
         .text-center { text-align: center; }
         .text-muted { color: var(--text-muted); }
 
-        ul { margin-bottom: 20px; }
+        ul { margin-bottom: 20px; padding-left: 20px; }
         li { margin-bottom: 10px; }
 
         /* --- VISUAL 1: Supply Chain Flowchart --- */
@@ -93,6 +125,7 @@
             font-weight: bold;
             font-size: 0.9em;
             position: relative;
+            box-sizing: border-box;
         }
         .box-red { background: var(--warn-red-light); border: 1px solid rgba(209, 36, 47, 0.3); color: var(--warn-red); margin-bottom: 10px;}
         .box-green { background: var(--pdd-green-light); border: 2px solid var(--pdd-green); color: var(--pdd-green); }
@@ -123,11 +156,13 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0,128,0,0.3);
+            box-sizing: border-box;
         }
         .n1 { width: 50px; height: 50px; font-size: 0.8em; }
         .n2 { width: 80px; height: 80px; font-size: 1em; }
         .n3 { width: 120px; height: 120px; font-size: 1.2em; border-radius: 10px; }
-        .vs-box { flex: 1; margin-left: 20px; padding: 20px; background: var(--warn-red-light); border: 1px dashed var(--warn-red); text-align: center; border-radius: 8px; }
+        .arrow-icon { color: var(--pdd-green); font-weight: bold; font-size: 1.5em; }
+        .vs-box { flex: 1; margin-left: 20px; padding: 20px; background: var(--warn-red-light); border: 1px dashed var(--warn-red); text-align: center; border-radius: 8px; box-sizing: border-box; }
 
         /* --- VISUAL 3: Singapore Simulation --- */
         .sg-graphic {
@@ -189,18 +224,62 @@
         .bar-rep-cash { height: 30%; background-color: var(--warn-red); color: #FFF; }
         .bar-label { margin-top: 15px; font-size: 0.9em; font-weight: bold; text-align: center; color: var(--text-muted); }
 
-        /* Responsive Adjustments */
+        /* ========================================= */
+        /* MOBILE RESPONSIVE OPTIMIZATIONS           */
+        /* ========================================= */
         @media (max-width: 768px) {
-            .flowchart-wrapper { flex-direction: column; gap: 40px; }
-            .network-graphic { flex-direction: column; gap: 30px; }
-            .vs-box { margin-left: 0; width: 100%; }
-            .sg-graphic { flex-direction: column; align-items: center; }
+            .container { padding: 15px 15px 40px 15px; }
+            .card { padding: 20px; }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.4em; }
+            
+            /* Flowchart: Stack vertically on mobile */
+            .flowchart-wrapper { flex-direction: column; gap: 40px; padding: 15px; }
+            .flow-col { width: 100%; }
+            .flow-box { font-size: 0.85em; padding: 12px; }
+
+            /* Network Graphic: Stack vertically */
+            .network-graphic { flex-direction: column; gap: 30px; padding: 20px 15px; }
+            .node-container { flex-direction: column; gap: 15px; width: 100%; }
+            .arrow-icon { transform: rotate(90deg); margin: 5px 0; }
+            .vs-box { margin-left: 0; width: 100%; padding: 15px; }
+
+            /* Singapore Simulation: Resize elements */
+            .sg-graphic { flex-direction: column; align-items: center; gap: 40px; padding: 30px 15px; }
             .mountain { border-left-width: 70px; border-right-width: 70px; border-bottom-width: 120px; }
-            .mountain::after { top: 70px; left: -50px; font-size: 0.6em; }
+            .mountain::after { top: 70px; left: -50px; font-size: 0.65em; width: 100px; }
+
+            /* EV Bar Chart: Keep side-by-side but shrink widths and fonts */
+            .chart-container { height: 280px; padding: 15px 10px; gap: 10px; justify-content: space-between; }
+            .bar-wrapper { width: 48%; }
+            .bar { font-size: 0.65em; padding: 5px; }
+            .bar-ev span:first-child, .bar-rep-time span:first-child, .bar-rep-cash span:first-child { font-size: 1.1em !important; }
+            .bar-label { font-size: 0.75em; margin-top: 10px; }
         }
     </style>
 </head>
 <body>
+
+<!-- TOP NAVIGATION & TRANSLATION -->
+<div class="top-nav">
+    <a href="https://popportunist.github.io/Math-of-Freedom" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Math of Freedom
+    </a>
+    <!-- Google Translate Element -->
+    <div id="google_translate_element"></div>
+</div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+      pageLanguage: 'en', 
+      includedLanguages: 'zh-CN,zh-TW',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <div class="container">
     <h1>THE PDD UTILITY THESIS</h1>
@@ -249,9 +328,9 @@
         <div class="network-graphic">
             <div class="node-container">
                 <div class="node n1">1 User</div>
-                <div style="color:var(--pdd-green); font-weight: bold;">➔</div>
+                <div class="arrow-icon">➔</div>
                 <div class="node n2">10 Match</div>
-                <div style="color:var(--pdd-green); font-weight: bold;">➔</div>
+                <div class="arrow-icon">➔</div>
                 <div class="node n3">10,000<br>Factory Order</div>
             </div>
             <div class="vs-box">
@@ -446,6 +525,26 @@
             </li>
         </ul>
         <p><strong>Why it matters to a Shareholder:</strong> If you are a short-term trader looking for hype, <em>Ben Fen</em> is infuriating. PDD management refuses to do stock promotions, rarely gives forward guidance, and ignores Wall Street's demands for quarter-to-quarter cheerleading. However, if you are a long-term investor, <em>Ben Fen</em> is the ultimate alignment. It means management is acting like silent, ruthless engineers focused entirely on compounding intrinsic value and expanding the moat, rather than temporarily pumping the share price. They don't talk; they execute.</p>
+    </div>
+
+    <!-- SECTION VI: THE TIMELINE OF RETURNS -->
+    <div class="card">
+        <h2>Section VI: The Timeline of Returns & Long-Termism</h2>
+        <p><em>"How long until the market recognizes this value?"</em></p>
+        
+        <p>PDD is currently in a massive, capital-intensive phase of global market building (expanding Temu's logistics network globally) while simultaneously hardening its domestic agricultural cloud. This requires extreme patience from capital allocators.</p>
+
+        <ul>
+            <li><strong>Not for the Short-Term Trader:</strong> If you are attempting to trade PDD around next quarter's earnings, the stock will break you. The ticker is highly volatile, subject to geopolitical noise (tariffs, bans), and driven by a "Ben Fen" management team that flatly refuses to massage quarterly numbers to appease Wall Street algorithms. They will gladly miss a quarterly earnings target if the cash is better spent securing a 10-year supply chain advantage.</li>
+            
+            <li style="margin-top: 15px;"><strong>For the Long-Term Business Owner:</strong> You are buying a civilizational utility at a distress multiple. Treat this not as a blinking stock ticker, but as a silent partnership in a global supply chain monopoly. You hold the equity, let the algorithms do the heavy lifting, and wait for the cash flows to compound.</li>
+        </ul>
+
+        <div class="quote-box">
+            In equity markets, no return is strictly guaranteed. However, mathematically, we look at the <strong>Enterprise Value to Free Cash Flow (EV/FCF) payback period</strong>. At current valuations, PDD generates enough cash to pay back its entire enterprise value in <span class="efficiency">~5 years</span>. 
+        </div>
+
+        <p>To see structural, undeniable returns, an investor must align their holding period with this <strong>5-year business compounding cycle</strong>. Give the company 60 months to let the cash reserves swell, allow the global logistics network to mature, and let the mathematical gravity of their free cash flow completely overwhelm any short-term geopolitical noise.</p>
     </div>
 
     <!-- CONCLUSION -->
