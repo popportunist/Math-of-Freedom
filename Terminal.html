@@ -96,6 +96,19 @@
                 transform: translateY(0);
             }
         }
+
+        /* Digital Terminal Kiosk Styling */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.15));
+            background-size: 100% 4px;
+        }
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.95; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body class="min-h-screen w-screen flex flex-col items-center p-0 md:p-6 lg:p-10 relative">
@@ -111,11 +124,30 @@
         <!-- Dark Gradient Overlay for the video -->
         <div id="video-overlay" class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-900/30 hidden z-10"></div>
 
-        <!-- Initial Interaction Button -->
-        <button id="start-btn" class="z-20 bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-full font-black tracking-widest uppercase text-sm md:text-xl shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transition-all transform hover:scale-105 flex items-center gap-3">
-            <span>Enter Central Station</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-        </button>
+        <!-- Terminal Kiosk UI -->
+        <div id="terminal-kiosk" class="z-20 flex flex-col items-center justify-center p-8 md:p-16 bg-slate-900/70 backdrop-blur-md border-2 border-emerald-500/40 rounded-xl shadow-[0_0_50px_rgba(16,185,129,0.15)] relative overflow-hidden max-w-[90vw]">
+            <!-- CRT Scanlines Overlay -->
+            <div class="absolute inset-0 scanlines pointer-events-none"></div>
+            
+            <div class="text-center font-mono crt-flicker relative z-10 w-full">
+                <div class="flex items-center justify-center gap-2 mb-2 text-emerald-500/80">
+                    <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                    <span class="text-[10px] md:text-sm tracking-[0.2em]">[SYSTEM ONLINE - CENTRAL STATION]</span>
+                </div>
+                <div class="text-emerald-400/70 text-xs md:text-base mb-10 tracking-[0.3em] uppercase">Awaiting Passenger Authentication</div>
+                
+                <button id="start-btn" class="group relative w-full px-6 md:px-12 py-4 md:py-5 border-2 border-emerald-400 text-emerald-400 font-black tracking-[0.1em] md:tracking-[0.2em] uppercase text-sm md:text-xl transition-all duration-300 overflow-hidden">
+                    <span class="relative z-10 group-hover:text-slate-900 transition-colors duration-300">Touch To Initiate Sequence</span>
+                    <div class="absolute inset-0 bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0"></div>
+                </button>
+                
+                <div class="mt-8 flex gap-3 justify-center items-center">
+                    <div class="w-2.5 h-2.5 bg-emerald-400 rounded-sm animate-pulse"></div>
+                    <div class="w-2.5 h-2.5 bg-emerald-400/20 rounded-sm"></div>
+                    <div class="w-2.5 h-2.5 bg-emerald-400/20 rounded-sm"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- Skip Button (Appears during video) -->
         <button id="skip-btn" class="absolute top-6 right-6 md:top-10 md:right-10 z-30 text-white/50 hover:text-white font-bold uppercase tracking-widest text-xs md:text-sm hidden transition-colors px-4 py-2 bg-slate-900/50 rounded-full backdrop-blur-sm border border-white/10">
@@ -325,6 +357,7 @@
     <script>
         // --- Cutscene Logic ---
         const cutsceneContainer = document.getElementById('cutscene-container');
+        const terminalKiosk = document.getElementById('terminal-kiosk');
         const startBtn = document.getElementById('start-btn');
         const introVideo = document.getElementById('intro-video');
         const videoOverlay = document.getElementById('video-overlay');
@@ -359,8 +392,8 @@
         }
 
         startBtn.addEventListener('click', () => {
-            // Hide start button, show video elements
-            startBtn.classList.add('hidden');
+            // Hide terminal kiosk, show video elements
+            terminalKiosk.classList.add('hidden');
             introVideo.classList.remove('hidden');
             videoOverlay.classList.remove('hidden');
             skipBtn.classList.remove('hidden');
@@ -395,7 +428,7 @@
                 reality: 'Your portfolio might look boring. While your friends brag about their tech stocks doubling in a year, your account balance will grow slowly. But when the stock market crashes by 30%, you won\'t panic—because your dividend paychecks will still arrive in your bank account on time.',
                 engines: ['DBS Group (D05.SI)'],
                 ctaText: 'Calculate My Dividend Freedom',
-                ctaLink: 'index.html' // Link back to the main calculator
+                ctaLink: 'early_retirement.html' 
             },
             'tech': {
                 theme: 'sky',
@@ -404,7 +437,7 @@
                 reality: 'You will reach Financial Independence faster than anyone else—IF you can stomach the ride. Tech stocks routinely crash by 20% to 40% during market panics. If you get scared and jump off the train while it\'s moving, you will lose your shirt.',
                 engines: ['Alphabet (GOOGL)', 'Amazon (AMZN)'],
                 ctaText: 'Calculate My High-Speed Freedom',
-                ctaLink: 'index.html'
+                ctaLink: 'early_retirement.html'
             },
             'value': {
                 theme: 'amber',
@@ -413,7 +446,7 @@
                 reality: 'This train requires the strongest mindset of them all. You might buy a stock, and it goes down another 20% because the news gets worse. You have to be willing to sit in the dark for years, trusting that your mathematical assessment is correct.',
                 engines: ['Alibaba (9988.HK)', 'China Sunsine (CGXC)', 'Prosus (PRX.AS)'],
                 ctaText: 'Calculate My Value Turnaround',
-                ctaLink: 'index.html'
+                ctaLink: 'early_retirement.html'
             },
             'disruptor': {
                 theme: 'rose',
@@ -422,7 +455,7 @@
                 reality: 'Wall Street loves them until their growth slows by even 1%. Because they don\'t have the defensive moat of an established monopoly, if their invasion fails or gets blocked by government tariffs, the stock will plummet violently.',
                 engines: ['Pinduoduo (PDD)', 'StoneCo (STNE)', 'BYD (1211.HK)'],
                 ctaText: 'Calculate My Hyper-Growth Plan',
-                ctaLink: 'index.html'
+                ctaLink: 'early_retirement.html'
             },
             'speculative': {
                 theme: 'violet',
@@ -431,7 +464,7 @@
                 reality: 'Be prepared to lose 100% of your ticket price. This is a binary bet: it either changes the world (or makes you a fortune), or it goes to zero due to hacks, fading trends, or regulatory bans. Never, ever put your grocery money here.',
                 engines: ['Hyperliquid (HYPE/PURR)', 'Chagee (CHA)'],
                 ctaText: 'Calculate My Speculative Bets',
-                ctaLink: 'index.html'
+                ctaLink: 'early_retirement.html'
             }
         };
 
