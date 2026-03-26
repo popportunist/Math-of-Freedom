@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Income Express - Choose Your Train</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #0f172a; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden; 
+        }
+
+        /* Gamified Ticket Styling */
+        .ticket {
+            position: relative;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid transparent;
+        }
+
+        .ticket:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+        }
+
+        .ticket.selected {
+            border-color: #10b981; /* Emerald 500 */
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2), 0 20px 35px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+        }
+
+        /* The perforated tear line on the ticket */
+        .ticket-divider {
+            border-top: 3px dashed #cbd5e1;
+            position: relative;
+            margin: 0 20px;
+        }
+        
+        /* The semi-circle cutouts on the sides of the ticket */
+        .ticket-divider::before, .ticket-divider::after {
+            content: '';
+            position: absolute;
+            top: -12px;
+            width: 24px;
+            height: 24px;
+            background-color: #f8fafc; /* Matches container background */
+            border-radius: 50%;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+        .ticket-divider::before { left: -32px; }
+        .ticket-divider::after { right: -32px; }
+
+        .barcode {
+            font-family: 'Libre Barcode 39 Text', monospace; /* Fallback to monospace if font not loaded */
+            letter-spacing: 2px;
+            color: #475569;
+        }
+
+        /* Smooth reveal for the itinerary */
+        #itinerary-panel {
+            transition: all 0.5s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #itinerary-panel.active {
+            max-height: 1200px;
+            opacity: 1;
+            margin-top: 2rem;
+        }
+
+        /* Cinematic Reveal Animations */
+        .cinematic-reveal {
+            animation: cinematicFadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        @keyframes cinematicFadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen w-screen flex flex-col items-center p-0 md:p-6 lg:p-10">
+
+    <div class="w-full h-full max-w-[85rem] bg-slate-50 md:rounded-2xl shadow-2xl overflow-hidden flex flex-col relative pb-10">
+        
+        <!-- Cinematic Header with Video Cut-Scene -->
+        <div class="relative bg-slate-900 text-white flex-shrink-0 border-b-4 border-emerald-500 z-10 shadow-lg min-h-[35vh] md:min-h-[45vh] flex flex-col justify-center items-center overflow-hidden p-6">
+            
+            <!-- Video Background Loop (Forced Autoload) -->
+            <video autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-75">
+                <source src="Ticket terminal.mp4" type="video/mp4">
+                <!-- Fallback for browsers that don't support video -->
+                <div class="absolute inset-0 bg-slate-800"></div>
+            </video>
+            
+            <!-- Dark Overlay to ensure text pops -->
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent z-10"></div>
+            <div class="absolute inset-0 bg-slate-900/40 z-10"></div>
+
+            <!-- Header Content (Cinematic Fade) -->
+            <div class="relative z-20 text-center w-full max-w-4xl mx-auto cinematic-reveal delay-100">
+                <h1 class="text-4xl md:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-emerald-200 drop-shadow-xl mb-4 uppercase">Central Station</h1>
+                <div class="h-1 w-24 bg-emerald-500 mx-auto mb-4 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)] cinematic-reveal delay-300"></div>
+                <p class="text-sm md:text-xl text-slate-100 font-bold leading-relaxed drop-shadow-md px-4 cinematic-reveal delay-500">There are many roads to Rome, but you can only ride one train at a time. Choose the vehicle that fits your stomach for turbulence and your timeline to freedom.</p>
+            </div>
+        </div>
+
+        <!-- Ticket Kiosk Container -->
+        <div class="flex-grow p-4 md:p-8 lg:p-12 relative z-20 -mt-6 md:-mt-10 cinematic-reveal delay-500">
+            
+            <div class="mb-8 md:mb-12 text-center">
+                <span class="inline-flex items-center gap-2 bg-slate-800 text-emerald-400 px-5 py-2 rounded-full text-[10px] md:text-sm font-black uppercase tracking-widest shadow-xl border border-slate-700">
+                    <span class="animate-pulse">🎫</span> Step 1: Select Your Boarding Pass
+                </span>
+            </div>
+
+            <!-- The Tickets Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-center">
+                
+                <!-- Ticket 1: Income Express -->
+                <div class="ticket" onclick="selectTrain('income')" id="ticket-income">
+                    <div class="bg-emerald-600 p-4 flex justify-between items-center text-white rounded-t-2xl">
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 01</span>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight">The Income Express</h3>
+                        </div>
+                        <span class="text-4xl drop-shadow-md">🚆</span>
+                    </div>
+                    <div class="p-6 bg-emerald-50 flex-grow">
+                        <p class="text-emerald-900 font-bold text-sm md:text-base leading-relaxed mb-4">"Slow, steady, and heavily armored. You get paid cash snacks while you look out the window."</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs md:text-sm border-b border-emerald-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Speed</span>
+                                <span class="font-black text-emerald-700">Moderate</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm border-b border-emerald-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Turbulence</span>
+                                <span class="font-black text-emerald-700">Low (Sleep Well)</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm">
+                                <span class="font-bold text-slate-500 uppercase">Profit Engine</span>
+                                <span class="font-black text-emerald-700">Dividends (~4-6%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-divider"></div>
+                    <div class="bg-white py-2 text-center rounded-b-2xl">
+                        <span class="barcode text-lg md:text-xl font-black opacity-30 tracking-widest leading-none">||| |||| | ||| |</span>
+                        <div class="text-[8px] uppercase font-black text-slate-400 mt-0.5">Tap to View</div>
+                    </div>
+                </div>
+
+                <!-- Ticket 2: Tech HSR -->
+                <div class="ticket" onclick="selectTrain('tech')" id="ticket-tech">
+                    <div class="bg-sky-600 p-4 flex justify-between items-center text-white rounded-t-2xl">
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 02</span>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight">Tech High-Speed Rail</h3>
+                        </div>
+                        <span class="text-4xl drop-shadow-md">🚄</span>
+                    </div>
+                    <div class="p-6 bg-sky-50 flex-grow">
+                        <p class="text-sky-900 font-bold text-sm md:text-base leading-relaxed mb-4">"Blistering fast. Powered by global monopolies. Buckle up, because the corners will make you dizzy."</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs md:text-sm border-b border-sky-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Speed</span>
+                                <span class="font-black text-sky-700">Extreme</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm border-b border-sky-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Turbulence</span>
+                                <span class="font-black text-rose-600">High (Nerve-wracking)</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm">
+                                <span class="font-bold text-slate-500 uppercase">Profit Engine</span>
+                                <span class="font-black text-sky-700">Capital Growth (~10-15%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-divider"></div>
+                    <div class="bg-white py-2 text-center rounded-b-2xl">
+                        <span class="barcode text-lg md:text-xl font-black opacity-30 tracking-widest leading-none">| ||| || | |||||</span>
+                        <div class="text-[8px] uppercase font-black text-slate-400 mt-0.5">Tap to View</div>
+                    </div>
+                </div>
+
+                <!-- Ticket 3: Deep Value Freight -->
+                <div class="ticket" onclick="selectTrain('value')" id="ticket-value">
+                    <div class="bg-amber-600 p-4 flex justify-between items-center text-white rounded-t-2xl">
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 03</span>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight">Deep Value Freight</h3>
+                        </div>
+                        <span class="text-4xl drop-shadow-md">🚂</span>
+                    </div>
+                    <div class="p-6 bg-amber-50 flex-grow">
+                        <p class="text-amber-900 font-bold text-sm md:text-base leading-relaxed mb-4">"Ugly, hated, and looks broken. But it's carrying a vault of gold, and you bought the ticket for pennies."</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs md:text-sm border-b border-amber-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Speed</span>
+                                <span class="font-black text-amber-700">Unpredictable</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm border-b border-amber-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Turbulence</span>
+                                <span class="font-black text-amber-700">Psychologically Rough</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm">
+                                <span class="font-bold text-slate-500 uppercase">Profit Engine</span>
+                                <span class="font-black text-amber-700">Price Correction (~15-25%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-divider"></div>
+                    <div class="bg-white py-2 text-center rounded-b-2xl">
+                        <span class="barcode text-lg md:text-xl font-black opacity-30 tracking-widest leading-none">|| ||||| || | ||</span>
+                        <div class="text-[8px] uppercase font-black text-slate-400 mt-0.5">Tap to View</div>
+                    </div>
+                </div>
+
+                <!-- Ticket 4: The Disruptor Bullet -->
+                <div class="ticket" onclick="selectTrain('disruptor')" id="ticket-disruptor">
+                    <div class="bg-rose-600 p-4 flex justify-between items-center text-white rounded-t-2xl">
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 04</span>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight">The Disruptor Bullet</h3>
+                        </div>
+                        <span class="text-4xl drop-shadow-md">🏎️</span>
+                    </div>
+                    <div class="p-6 bg-rose-50 flex-grow">
+                        <p class="text-rose-900 font-bold text-sm md:text-base leading-relaxed mb-4">"A rogue, unarmored train speeding on unfinished tracks to aggressively invade enemy territory."</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs md:text-sm border-b border-rose-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Speed</span>
+                                <span class="font-black text-rose-700">Hyper-Sonic</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm border-b border-rose-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Turbulence</span>
+                                <span class="font-black text-rose-700">Violent (Whiplash)</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm">
+                                <span class="font-bold text-slate-500 uppercase">Profit Engine</span>
+                                <span class="font-black text-rose-700">Hyper-Growth (~20%+)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-divider"></div>
+                    <div class="bg-white py-2 text-center rounded-b-2xl">
+                        <span class="barcode text-lg md:text-xl font-black opacity-30 tracking-widest leading-none">| ||| | ||| || |</span>
+                        <div class="text-[8px] uppercase font-black text-slate-400 mt-0.5">Tap to View</div>
+                    </div>
+                </div>
+
+                <!-- Ticket 5: Speculative Spaceplane -->
+                <div class="ticket" onclick="selectTrain('speculative')" id="ticket-speculative">
+                    <div class="bg-violet-600 p-4 flex justify-between items-center text-white rounded-t-2xl">
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 05</span>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight">Experimental Spaceplane</h3>
+                        </div>
+                        <span class="text-4xl drop-shadow-md">🛸</span>
+                    </div>
+                    <div class="p-6 bg-violet-50 flex-grow">
+                        <p class="text-violet-900 font-bold text-sm md:text-base leading-relaxed mb-4">"You are stepping off the train tracks entirely. This is an experimental rocket. Orbit or explosion."</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs md:text-sm border-b border-violet-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Speed</span>
+                                <span class="font-black text-violet-700">Escape Velocity</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm border-b border-violet-200 pb-1">
+                                <span class="font-bold text-slate-500 uppercase">Turbulence</span>
+                                <span class="font-black text-rose-600">G-Force Crushing</span>
+                            </div>
+                            <div class="flex justify-between text-xs md:text-sm">
+                                <span class="font-bold text-slate-500 uppercase">Profit Engine</span>
+                                <span class="font-black text-violet-700">Narrative (-100% to 1000%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-divider"></div>
+                    <div class="bg-white py-2 text-center rounded-b-2xl">
+                        <span class="barcode text-lg md:text-xl font-black opacity-30 tracking-widest leading-none">|||| | | |||| ||</span>
+                        <div class="text-[8px] uppercase font-black text-slate-400 mt-0.5">Tap to View</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Dynamic Itinerary Panel -->
+            <div id="itinerary-panel" class="bg-white rounded-2xl shadow-xl border-t-8 border-slate-800 p-6 md:p-10 relative mt-8">
+                <!-- Content injected via JS -->
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const itineraries = {
+            'income': {
+                theme: 'emerald',
+                title: 'The Income Express Itinerary',
+                desc: 'You have chosen the path of psychological comfort. Instead of praying for the stock price to go up so you can sell it, you are buying businesses that simply share their profits with you every quarter. It is the defensive strategy of the ultimate pragmatist.',
+                reality: 'Your portfolio might look boring. While your friends brag about their tech stocks doubling in a year, your account balance will grow slowly. But when the stock market crashes by 30%, you won\'t panic—because your dividend paychecks will still arrive in your bank account on time.',
+                engines: ['DBS Group (D05.SI)'],
+                ctaText: 'Calculate My Dividend Freedom',
+                ctaLink: 'index.html' // Link back to the main calculator
+            },
+            'tech': {
+                theme: 'sky',
+                title: 'The Tech High-Speed Rail Itinerary',
+                desc: 'You have chosen the path of global domination. You are buying the companies that own the digital infrastructure of human civilization. They don\'t pay you dividends; they reinvest every dollar into growing faster to crush their competition.',
+                reality: 'You will reach Financial Independence faster than anyone else—IF you can stomach the ride. Tech stocks routinely crash by 20% to 40% during market panics. If you get scared and jump off the train while it\'s moving, you will lose your shirt.',
+                engines: ['Alphabet (GOOGL)', 'Amazon (AMZN)'],
+                ctaText: 'Calculate My High-Speed Freedom',
+                ctaLink: 'index.html'
+            },
+            'value': {
+                theme: 'amber',
+                title: 'The Deep Value Freight Itinerary',
+                desc: 'You are a contrarian. You enjoy buying things that the rest of the world is terrified of. You believe that eventually, basic math and cash flow will outweigh fear and negative news headlines. You are buying a USD 100 bill for USD 50.',
+                reality: 'This train requires the strongest mindset of them all. You might buy a stock, and it goes down another 20% because the news gets worse. You have to be willing to sit in the dark for years, trusting that your mathematical assessment is correct.',
+                engines: ['Alibaba (9988.HK)', 'China Sunsine (CGXC)', 'Prosus (PRX.AS)'],
+                ctaText: 'Calculate My Value Turnaround',
+                ctaLink: 'index.html'
+            },
+            'disruptor': {
+                theme: 'rose',
+                title: 'The Disruptor Bullet Itinerary',
+                desc: 'You are betting on the aggressive underdog. These companies are invading established markets (like Amazon\'s retail dominance or traditional banking) and slashing prices to steal customers. They burn cash to grow at breakneck speeds.',
+                reality: 'Wall Street loves them until their growth slows by even 1%. Because they don\'t have the defensive moat of an established monopoly, if their invasion fails or gets blocked by government tariffs, the stock will plummet violently.',
+                engines: ['Pinduoduo (PDD)', 'StoneCo (STNE)', 'BYD (1211.HK)'],
+                ctaText: 'Calculate My Hyper-Growth Plan',
+                ctaLink: 'index.html'
+            },
+            'speculative': {
+                theme: 'violet',
+                title: 'The Experimental Spaceplane Itinerary',
+                desc: 'You are stepping off the train tracks entirely. This is for unproven business models, decentralized crypto blockchains, and hyper-trendy consumer fads. The objective is to find the next generation-defining asset before the masses do.',
+                reality: 'Be prepared to lose 100% of your ticket price. This is a binary bet: it either changes the world (or makes you a fortune), or it goes to zero due to hacks, fading trends, or regulatory bans. Never, ever put your grocery money here.',
+                engines: ['Hyperliquid (HYPE/PURR)', 'Chagee (CHA)'],
+                ctaText: 'Calculate My Speculative Bets',
+                ctaLink: 'index.html'
+            }
+        };
+
+        function selectTrain(trainId) {
+            // Reset all tickets
+            document.querySelectorAll('.ticket').forEach(t => t.classList.remove('selected'));
+            
+            // Highlight selected
+            const ticket = document.getElementById(`ticket-${trainId}`);
+            ticket.classList.add('selected');
+
+            // Populate Itinerary
+            const data = itineraries[trainId];
+            const panel = document.getElementById('itinerary-panel');
+            
+            // Update border color based on theme
+            panel.className = `bg-white rounded-2xl shadow-2xl border-t-8 border-${data.theme}-500 p-6 md:p-10 relative active`;
+
+            let enginesList = data.engines.map(e => `<span class="inline-block bg-slate-100 text-slate-800 font-black px-3 py-1.5 rounded-lg shadow-sm border border-slate-200 mr-2 mb-2 text-sm">${e}</span>`).join('');
+
+            panel.innerHTML = `
+                <div class="mb-6 border-b border-slate-100 pb-4">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-${data.theme}-600">Step 2: Review Journey Details</span>
+                    <h2 class="text-2xl md:text-4xl font-black text-slate-900 tracking-tight mt-1">${data.title}</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="mb-6">
+                            <h4 class="flex items-center gap-2 font-black text-slate-800 text-lg uppercase tracking-wider mb-2">
+                                <span>🗺️</span> The Strategy
+                            </h4>
+                            <p class="text-slate-600 font-medium leading-relaxed">${data.desc}</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="flex items-center gap-2 font-black text-slate-800 text-lg uppercase tracking-wider mb-2">
+                                <span>⚠️</span> The Harsh Reality
+                            </h4>
+                            <p class="text-slate-600 font-medium leading-relaxed italic border-l-4 border-slate-300 pl-4 py-1">"${data.reality}"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-black text-slate-800 text-sm uppercase tracking-wider mb-3">🔥 Primary Engines (Eush Picks)</h4>
+                            <div class="flex flex-wrap">
+                                ${enginesList}
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-slate-200 text-center">
+                            <a href="${data.ctaLink}" class="inline-block w-full bg-${data.theme}-600 text-white font-black text-sm md:text-base py-4 rounded-xl shadow-lg hover:bg-${data.theme}-700 hover:-translate-y-1 transition-all uppercase tracking-widest">
+                                ${data.ctaText} →
+                            </a>
+                            <p class="text-[10px] text-slate-400 mt-3 font-bold uppercase tracking-wider">Transfers to the Math Calculator</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Scroll to panel
+            setTimeout(() => {
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
