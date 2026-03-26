@@ -117,8 +117,9 @@
     <!-- PERMANENT CINEMATIC BACKGROUND -->
     <div id="video-bg" class="fixed inset-0 z-0 pointer-events-none bg-black flex items-center justify-center">
         <!-- Object-contain on mobile fixes the "ugly" cropping, object-cover for desktop immersion -->
-        <video id="intro-video" playsinline preload="auto" loop muted class="w-full h-full object-contain md:object-cover opacity-70 filter brightness-75 transition-opacity duration-1000">
-            <source src="Ticket terminal.mp4" type="video/mp4">
+        <!-- Note: Added autoplay and URL-encoded the space for GitHub compatibility -->
+        <video id="intro-video" playsinline preload="auto" autoplay loop muted class="w-full h-full object-contain md:object-cover opacity-70 filter brightness-75 transition-opacity duration-1000">
+            <source src="Ticket%20terminal.mp4" type="video/mp4">
         </video>
         <!-- Radial Gradient to blend the video edges seamlessly into the black background on mobile -->
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#000000_90%)] md:bg-[radial-gradient(circle_at_center,transparent_10%,#020617_90%)]"></div>
@@ -128,7 +129,7 @@
     <!-- LANDING SCREEN: TERMINAL KIOSK -->
     <div id="landing-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out p-4">
         
-        <div id="terminal-kiosk" class="z-20 flex flex-col items-center justify-center p-8 md:p-16 bg-slate-900/80 backdrop-blur-xl border-2 border-emerald-500/40 rounded-xl shadow-[0_0_50px_rgba(16,185,129,0.15)] relative overflow-hidden w-full max-w-2xl transform transition-transform duration-500">
+        <div id="terminal-kiosk" class="z-20 flex flex-col items-center justify-center p-8 md:p-16 bg-slate-900/80 backdrop-blur-xl border-2 border-emerald-500/40 rounded-xl shadow-[0_0_50px_rgba(16,185,129,0.15)] relative overflow-hidden w-full max-w-2xl transform transition-transform duration-500 hover:shadow-[0_0_80px_rgba(16,185,129,0.25)]">
             <div class="absolute inset-0 scanlines pointer-events-none"></div>
             
             <div class="text-center font-mono crt-flicker relative z-10 w-full">
@@ -145,7 +146,7 @@
                 <h2 class="text-emerald-400 text-lg md:text-2xl mb-2 tracking-[0.3em] font-black uppercase drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]">Central Station</h2>
                 <div class="text-emerald-400/60 text-xs md:text-sm mb-12 tracking-[0.2em] uppercase">Link Established</div>
                 
-                <button id="start-btn" class="group relative w-full px-6 md:px-12 py-5 md:py-6 border-2 border-emerald-400 text-emerald-400 font-black tracking-[0.1em] md:tracking-[0.2em] uppercase text-sm md:text-xl transition-all duration-300 overflow-hidden bg-slate-950/50">
+                <button id="start-btn" onmouseenter="playTerminalSound('hover')" class="group relative w-full px-6 md:px-12 py-5 md:py-6 border-2 border-emerald-400 text-emerald-400 font-black tracking-[0.1em] md:tracking-[0.2em] uppercase text-sm md:text-xl transition-all duration-300 overflow-hidden bg-slate-950/50">
                     <span class="relative z-10 group-hover:text-slate-900 transition-colors duration-300">Initiate Sequence</span>
                     <div class="absolute inset-0 bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0"></div>
                 </button>
@@ -184,7 +185,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 justify-center font-sans">
                 
                 <!-- Ticket 1: Income Express -->
-                <div class="ticket" onclick="selectTrain('income')" id="ticket-income">
+                <div class="ticket" onclick="selectTrain('income')" onmouseenter="playTerminalSound('hover')" id="ticket-income">
                     <div class="bg-emerald-600 p-5 flex justify-between items-center text-white">
                         <div>
                             <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 01</span>
@@ -217,7 +218,7 @@
                 </div>
 
                 <!-- Ticket 2: Tech HSR -->
-                <div class="ticket" onclick="selectTrain('tech')" id="ticket-tech">
+                <div class="ticket" onclick="selectTrain('tech')" onmouseenter="playTerminalSound('hover')" id="ticket-tech">
                     <div class="bg-sky-600 p-5 flex justify-between items-center text-white">
                         <div>
                             <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 02</span>
@@ -250,7 +251,7 @@
                 </div>
 
                 <!-- Ticket 3: Deep Value Freight -->
-                <div class="ticket" onclick="selectTrain('value')" id="ticket-value">
+                <div class="ticket" onclick="selectTrain('value')" onmouseenter="playTerminalSound('hover')" id="ticket-value">
                     <div class="bg-amber-600 p-5 flex justify-between items-center text-white">
                         <div>
                             <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 03</span>
@@ -283,7 +284,7 @@
                 </div>
 
                 <!-- Ticket 4: The Disruptor Bullet -->
-                <div class="ticket" onclick="selectTrain('disruptor')" id="ticket-disruptor">
+                <div class="ticket" onclick="selectTrain('disruptor')" onmouseenter="playTerminalSound('hover')" id="ticket-disruptor">
                     <div class="bg-rose-600 p-5 flex justify-between items-center text-white">
                         <div>
                             <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 04</span>
@@ -316,7 +317,7 @@
                 </div>
 
                 <!-- Ticket 5: Speculative Spaceplane -->
-                <div class="ticket" onclick="selectTrain('speculative')" id="ticket-speculative">
+                <div class="ticket" onclick="selectTrain('speculative')" onmouseenter="playTerminalSound('hover')" id="ticket-speculative">
                     <div class="bg-violet-600 p-5 flex justify-between items-center text-white">
                         <div>
                             <span class="text-[10px] font-black uppercase tracking-widest opacity-80 block">Pass 05</span>
@@ -359,7 +360,60 @@
     </div>
 
     <script>
-        // --- Intro Logic & Audio Workaround ---
+        // --- Synthetic Audio Engine (The Quant) ---
+        // Generates CRT terminal sound effects purely from math. No audio files needed.
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playTerminalSound(type) {
+            if (!audioCtx || audioCtx.state !== 'running') return;
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            if (type === 'hover') {
+                // High pitch, very fast subtle blip
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+                gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.03);
+            } else if (type === 'click') {
+                // Mechanical solid clack
+                oscillator.type = 'square';
+                oscillator.frequency.setValueAtTime(300, audioCtx.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.1);
+            } else if (type === 'success') {
+                // Ascending authorization chime
+                oscillator.type = 'square';
+                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(600, audioCtx.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime + 0.2);
+                gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
+            }
+        }
+
+
+        // --- Intro Logic & Screen Handling ---
         const landingScreen = document.getElementById('landing-screen');
         const startBtn = document.getElementById('start-btn');
         const introVideo = document.getElementById('intro-video');
@@ -368,19 +422,10 @@
         
         let audioUnlocked = false;
 
-        // Auto-play muted immediately on load
-        window.addEventListener('DOMContentLoaded', () => {
-            introVideo.muted = true;
-            let playPromise = introVideo.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Muted autoplay blocked (rare):", error);
-                });
-            }
-        });
-
-        // Global unlock mechanism: First tap anywhere unlocks audio
+        // Global unlock mechanism: First tap anywhere unlocks Web Audio API and Video Audio
         document.body.addEventListener('click', function unlockAudio() {
+            initAudio(); // Initialize the synthetic sound engine
+            
             if (!audioUnlocked) {
                 introVideo.muted = false;
                 audioUnlocked = true;
@@ -391,11 +436,13 @@
                     <span class="text-emerald-500/80">[ AUDIO: SECURED ]</span>
                 `;
             }
-        }, { once: false }); // Runs repeatedly but state flags ensure it only processes once visually
+        }, { once: false });
 
         // Transition from Landing to Dashboard
         startBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Let the global click handler process audio first
+            e.stopPropagation(); 
+            initAudio();
+            playTerminalSound('success'); // Play ascending chime
             
             // Fade out the kiosk
             landingScreen.style.opacity = '0';
@@ -404,15 +451,11 @@
                 landingScreen.style.display = 'none';
                 mainContent.classList.remove('hidden');
                 
-                // Dim the background video slightly more to prioritize readability
-                introVideo.classList.replace('opacity-70', 'opacity-30');
-                
                 requestAnimationFrame(() => {
                     mainContent.style.opacity = '1';
                 });
             }, 800); 
         });
-
 
         // --- Ticket Logic Map with Explicit Tailwind Safe Classes ---
         const themeMap = {
@@ -437,7 +480,7 @@
                 themeKey: 'sky',
                 title: 'The Tech High-Speed Rail Itinerary',
                 desc: 'You have chosen the path of global domination. You are buying the companies that own the digital infrastructure of human civilization. They don\'t pay you dividends; they reinvest every dollar into growing faster to crush their competition.',
-                reality: 'You will reach Financial Independence faster than anyone else—IF you can stomach the ride. Tech stocks routinely crash by 20% to 40% during market panics. If you get scared and jump off the train while it\'s moving, you will lose your shirt.',
+                reality: 'You will reach Financial Independence faster than anyone else—IF you can stomach the ride. Tech stocks routinely crash by USD 20 to USD 40 percent during market panics. If you get scared and jump off the train while it\'s moving, you will lose your shirt.',
                 engines: ['Alphabet (GOOGL)', 'Amazon (AMZN)'],
                 ctaText: 'Calculate My High-Speed Freedom',
                 ctaLink: 'early_retirement.html'
@@ -472,6 +515,8 @@
         };
 
         function selectTrain(trainId) {
+            playTerminalSound('click'); // Play mechanical clack
+
             // Reset all tickets
             document.querySelectorAll('.ticket').forEach(t => t.classList.remove('selected'));
             
@@ -527,7 +572,7 @@
                             </div>
                             
                             <div class="mt-8 pt-6 border-t border-slate-800 text-center">
-                                <a href="${data.ctaLink}" class="inline-block w-full ${theme.bg} border ${theme.border} ${theme.text} font-black text-xs md:text-base py-4 ${theme.hover} transition-all uppercase tracking-[0.2em]">
+                                <a href="${data.ctaLink}" onmouseenter="playTerminalSound('hover')" class="inline-block w-full ${theme.bg} border ${theme.border} ${theme.text} font-black text-xs md:text-base py-4 ${theme.hover} transition-all uppercase tracking-[0.2em]">
                                     INITIATE >> ${data.ctaText}
                                 </a>
                                 <p class="text-[9px] md:text-[10px] text-slate-600 mt-4 font-bold uppercase tracking-widest animate-pulse">Routing to Math Calculator...</p>
