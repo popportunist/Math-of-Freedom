@@ -331,8 +331,19 @@
         const skipBtn = document.getElementById('skip-btn');
         const mainContent = document.getElementById('main-content');
         
+        let playPromise;
+        
         function endCutscene() {
-            introVideo.pause();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    introVideo.pause();
+                }).catch(error => {
+                    console.warn("Video play interrupted:", error);
+                });
+            } else {
+                introVideo.pause();
+            }
+            
             cutsceneContainer.style.opacity = '0';
             
             // Wait for fade out, then hide cutscene and show main content
@@ -358,11 +369,14 @@
             introVideo.volume = 1.0;
             introVideo.muted = false;
             
-            introVideo.play().catch(error => {
-                console.error("Browser blocked video playback:", error);
-                // If playback is blocked entirely, gracefully skip the cutscene
-                endCutscene();
-            });
+            playPromise = introVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error("Browser blocked video playback:", error);
+                    // If playback is blocked entirely, gracefully skip the cutscene
+                    endCutscene();
+                });
+            }
         });
 
         // End cutscene automatically when video finishes
