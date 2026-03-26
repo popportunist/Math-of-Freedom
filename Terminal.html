@@ -114,20 +114,8 @@
 </head>
 <body class="min-h-[100dvh] w-screen flex flex-col items-center p-0 md:p-6 lg:p-8 relative bg-black">
 
-    <!-- PERMANENT CINEMATIC BACKGROUND -->
-    <div id="video-bg" class="fixed inset-0 z-0 pointer-events-none bg-black flex items-center justify-center">
-        <!-- Object-contain on mobile fixes the "ugly" cropping, object-cover for desktop immersion -->
-        <!-- Note: Added autoplay and URL-encoded the space for GitHub compatibility -->
-        <video id="intro-video" playsinline preload="auto" autoplay loop muted class="w-full h-full object-contain md:object-cover opacity-70 filter brightness-75 transition-opacity duration-1000">
-            <source src="Ticket%20terminal.mp4" type="video/mp4">
-        </video>
-        <!-- Radial Gradient to blend the video edges seamlessly into the black background on mobile -->
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#000000_90%)] md:bg-[radial-gradient(circle_at_center,transparent_10%,#020617_90%)]"></div>
-        <div class="absolute inset-0 bg-slate-900/30"></div>
-    </div>
-
     <!-- LANDING SCREEN: TERMINAL KIOSK -->
-    <div id="landing-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out p-4">
+    <div id="landing-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out p-4 bg-slate-950">
         
         <div id="terminal-kiosk" class="z-20 flex flex-col items-center justify-center p-8 md:p-16 bg-slate-900/80 backdrop-blur-xl border-2 border-emerald-500/40 rounded-xl shadow-[0_0_50px_rgba(16,185,129,0.15)] relative overflow-hidden w-full max-w-2xl transform transition-transform duration-500 hover:shadow-[0_0_80px_rgba(16,185,129,0.25)]">
             <div class="absolute inset-0 scanlines pointer-events-none"></div>
@@ -412,50 +400,50 @@
             }
         }
 
-
         // --- Intro Logic & Screen Handling ---
         const landingScreen = document.getElementById('landing-screen');
         const startBtn = document.getElementById('start-btn');
-        const introVideo = document.getElementById('intro-video');
         const mainContent = document.getElementById('main-content');
         const audioStatus = document.getElementById('audio-status');
         
         let audioUnlocked = false;
 
-        // Global unlock mechanism: First tap anywhere unlocks Web Audio API and Video Audio
+        // Global unlock mechanism: First tap anywhere unlocks Web Audio API
         document.body.addEventListener('click', function unlockAudio() {
-            initAudio(); // Initialize the synthetic sound engine
+            initAudio(); 
             
             if (!audioUnlocked) {
-                introVideo.muted = false;
                 audioUnlocked = true;
-                
                 // Update terminal indicator
-                audioStatus.innerHTML = `
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-emerald-500/80">[ AUDIO: SECURED ]</span>
-                `;
+                if(audioStatus) {
+                    audioStatus.innerHTML = `
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-emerald-500/80">[ AUDIO: SECURED ]</span>
+                    `;
+                }
             }
         }, { once: false });
 
         // Transition from Landing to Dashboard
-        startBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            initAudio();
-            playTerminalSound('success'); // Play ascending chime
-            
-            // Fade out the kiosk
-            landingScreen.style.opacity = '0';
-            
-            setTimeout(() => {
-                landingScreen.style.display = 'none';
-                mainContent.classList.remove('hidden');
+        if(startBtn) {
+            startBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                initAudio();
+                playTerminalSound('success'); // Play ascending chime
                 
-                requestAnimationFrame(() => {
-                    mainContent.style.opacity = '1';
-                });
-            }, 800); 
-        });
+                // Fade out the kiosk
+                landingScreen.style.opacity = '0';
+                
+                setTimeout(() => {
+                    landingScreen.style.display = 'none';
+                    mainContent.classList.remove('hidden');
+                    
+                    requestAnimationFrame(() => {
+                        mainContent.style.opacity = '1';
+                    });
+                }, 800); 
+            });
+        }
 
         // --- Ticket Logic Map with Explicit Tailwind Safe Classes ---
         const themeMap = {
@@ -474,7 +462,7 @@
                 reality: 'Your portfolio might look boring. While your friends brag about their tech stocks doubling in a year, your account balance will grow slowly. But when the stock market crashes by 30%, you won\'t panic—because your dividend paychecks will still arrive in your bank account on time.',
                 engines: ['DBS Group (D05.SI)'],
                 ctaText: 'Calculate My Dividend Freedom',
-                ctaLink: 'early_retirement.html' 
+                ctaLink: 'index.html' 
             },
             'tech': {
                 themeKey: 'sky',
@@ -483,7 +471,7 @@
                 reality: 'You will reach Financial Independence faster than anyone else—IF you can stomach the ride. Tech stocks routinely crash by USD 20 to USD 40 percent during market panics. If you get scared and jump off the train while it\'s moving, you will lose your shirt.',
                 engines: ['Alphabet (GOOGL)', 'Amazon (AMZN)'],
                 ctaText: 'Calculate My High-Speed Freedom',
-                ctaLink: 'early_retirement.html'
+                ctaLink: 'index.html'
             },
             'value': {
                 themeKey: 'amber',
@@ -492,7 +480,7 @@
                 reality: 'This train requires the strongest mindset of them all. You might buy a stock, and it goes down another 20% because the news gets worse. You have to be willing to sit in the dark for years, trusting that your mathematical assessment is correct.',
                 engines: ['Alibaba (9988.HK)', 'China Sunsine (CGXC)', 'Prosus (PRX.AS)'],
                 ctaText: 'Calculate My Value Turnaround',
-                ctaLink: 'early_retirement.html'
+                ctaLink: 'index.html'
             },
             'disruptor': {
                 themeKey: 'rose',
@@ -501,7 +489,7 @@
                 reality: 'Wall Street loves them until their growth slows by even 1%. Because they don\'t have the defensive moat of an established monopoly, if their invasion fails or gets blocked by government tariffs, the stock will plummet violently.',
                 engines: ['Pinduoduo (PDD)', 'StoneCo (STNE)', 'BYD (1211.HK)'],
                 ctaText: 'Calculate My Hyper-Growth Plan',
-                ctaLink: 'early_retirement.html'
+                ctaLink: 'index.html'
             },
             'speculative': {
                 themeKey: 'violet',
@@ -510,7 +498,7 @@
                 reality: 'Be prepared to lose 100% of your ticket price. This is a binary bet: it either changes the world (or makes you a fortune), or it goes to zero due to hacks, fading trends, or regulatory bans. Never, ever put your grocery money here.',
                 engines: ['Hyperliquid (HYPE/PURR)', 'Chagee (CHA)'],
                 ctaText: 'Calculate My Speculative Bets',
-                ctaLink: 'early_retirement.html'
+                ctaLink: 'index.html'
             }
         };
 
