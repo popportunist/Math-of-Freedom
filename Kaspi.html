@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaspi.kz (NASDAQ: KSPI) — Buy-Side Institutional Memorandum</title>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #111827;
+      --bg-card-alt: #162032;
+      --border-color: #1f293d;
+      --border-highlight: #334155;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-bright: #ffffff;
+      --accent-green: #10b981;
+      --accent-green-dim: rgba(16, 185, 129, 0.15);
+      --accent-blue: #38bdf8;
+      --accent-blue-dim: rgba(56, 189, 248, 0.15);
+      --accent-amber: #f59e0b;
+      --accent-amber-dim: rgba(245, 158, 11, 0.15);
+      --accent-red: #ef4444;
+      --accent-red-dim: rgba(239, 68, 68, 0.15);
+      --mono-font: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--sans-font);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* Terminal Meta Bar */
+    .terminal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-family: var(--mono-font);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .terminal-meta span {
+      color: var(--text-bright);
+    }
+
+    /* Header Hero */
+    .hero-header {
+      background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: var(--mono-font);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-buy {
+      background: var(--accent-green-dim);
+      color: var(--accent-green);
+      border: 1px solid var(--accent-green);
+    }
+
+    .badge-tag {
+      background: var(--accent-blue-dim);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .badge-gold {
+      background: var(--accent-amber-dim);
+      color: var(--accent-amber);
+      border: 1px solid var(--accent-amber);
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      color: var(--text-bright);
+      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--accent-blue);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    /* Key Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .metric-card {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      font-family: var(--mono-font);
+    }
+
+    .metric-value {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      font-family: var(--mono-font);
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--accent-green);
+      margin-top: 2px;
+    }
+
+    /* Content Cards */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      color: var(--text-bright);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .section-title .step-num {
+      color: var(--accent-blue);
+      font-family: var(--mono-font);
+      font-size: 1rem;
+    }
+
+    /* Kopitiam Decoder Grid */
+    .decoder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+    }
+
+    .decoder-item {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .decoder-title {
+      font-weight: 700;
+      color: var(--accent-amber);
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .decoder-desc {
+      font-size: 0.875rem;
+      color: var(--text-main);
+    }
+
+    /* Commentary Callout Box */
+    .commentary-box {
+      background: rgba(30, 41, 59, 0.4);
+      border-left: 3px solid var(--accent-blue);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin-top: 16px;
+      font-size: 0.9rem;
+    }
+
+    .commentary-header {
+      font-weight: 700;
+      color: var(--accent-blue);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-family: var(--mono-font);
+      margin-bottom: 6px;
+    }
+
+    /* Responsive Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    th {
+      background: #141c2e;
+      color: var(--text-bright);
+      font-family: var(--mono-font);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .mono-cell {
+      font-family: var(--mono-font);
+    }
+
+    .risk-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-family: var(--mono-font);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .risk-moderate {
+      background: var(--accent-amber-dim);
+      color: var(--accent-amber);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .risk-low {
+      background: var(--accent-green-dim);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .footer-note {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-family: var(--mono-font);
+      border-top: 1px solid var(--border-color);
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Top Metadata Header -->
+    <div class="terminal-meta">
+      <div>EQUITY RESEARCH // BUY-SIDE INSTITUTIONAL MEMORANDUM</div>
+      <div>NASDAQ: <span>KSPI</span> | NASDAQ GLOBAL SELECT</div>
+      <div>CONFIDENTIAL // CAPITAL COMPOUNDING</div>
+    </div>
+
+    <!-- Main Header Card -->
+    <header class="hero-header">
+      <div class="badge-row">
+        <span class="badge badge-buy">STRONG BUY / MAX ACCUMULATE</span>
+        <span class="badge badge-tag">SUPER-APP FLYWHEEL</span>
+        <span class="badge badge-gold">8.15% DIVIDEND YIELD</span>
+      </div>
+      <h1>Kaspi.kz JSC (NASDAQ: KSPI)</h1>
+      <div class="subtitle">"What if DBS, PayNow, Shopee, Grab, and Singpass were merged into one single machine?"</div>
+      
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Current Price</div>
+          <div class="metric-value">USD 100.95</div>
+          <div class="metric-sub">Per ADS Share</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Valuation Multiple</div>
+          <div class="metric-value">8.40x P/E</div>
+          <div class="metric-sub">&gt;50% Return on Equity</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Dividend Yield</div>
+          <div class="metric-value">8.15%</div>
+          <div class="metric-sub">Quarterly Cash Yield</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Market Cap</div>
+          <div class="metric-value">USD 19.07B</div>
+          <div class="metric-sub">National Monopoly Lock</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Kopitiam Financial Jargon Decoder -->
+    <section class="section-card">
+      <div class="section-title">
+        <span>The Kopitiam Financial Jargon Decoder</span>
+      </div>
+      <div class="decoder-grid">
+        <div class="decoder-item">
+          <div class="decoder-title">
+            <span>ROE — The Hawker Stall Multiplier</span>
+            <span class="badge badge-buy">>45%-60%</span>
+          </div>
+          <p class="decoder-desc">Imagine setting up a Michelin chicken rice stall with $10,000 equity. At year-end, after paying chickens, rice, and helpers, you pocket $6,000 pure cash profit = 60% ROE. Legacy banks generate 10%-12%; Kaspi operates above 50%.</p>
+        </div>
+        <div class="decoder-item">
+          <div class="decoder-title">
+            <span>P/E Ratio — The Takeover Price Tag</span>
+            <span class="badge badge-gold">8.4x Payback</span>
+          </div>
+          <p class="decoder-desc">A Chinatown shophouse nets $10,000/yr in rent and sells for $84,000 = 8.4x P/E (8.4-year cash payback). US tech giants trade between 35x-50x.</p>
+        </div>
+        <div class="decoder-item">
+          <div class="decoder-title">
+            <span>Take-Rate — The Mall Landlord's Cut</span>
+            <span class="badge badge-tag">16.1% Net</span>
+          </div>
+          <p class="decoder-desc">Like CapitaLand charging turnover rent at ION Orchard, Kaspi charges merchants a 16.1% fee for delivering 100% of paying foot traffic and guaranteed checkout financing.</p>
+        </div>
+        <div class="decoder-item">
+          <div class="decoder-title">
+            <span>NIM &amp; Floating Rate Arbitrage</span>
+            <span class="badge badge-tag">The Spread</span>
+          </div>
+          <p class="decoder-desc">Gathering cheap retail deposits (like POSB) and deploying them into high-velocity 0-0-12 consumer loans with instantaneous digital approval.</p>
+        </div>
+        <div class="decoder-item">
+          <div class="decoder-title">
+            <span>DRIP — The Snowballing Kopi-O</span>
+            <span class="badge badge-buy">Automatic</span>
+          </div>
+          <p class="decoder-desc">Dividend Reinvestment Plan: automatically deploying quarterly cash payouts to purchase additional shares without injecting fresh personal capital.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 60-Second Pitch -->
+    <section class="section-card">
+      <div class="section-title">
+        <span>The 60-Second Pitch: A Day in the Life with Kaspi</span>
+      </div>
+      <p style="margin-bottom: 12px;">Picture an ordinary citizen waking up in Almaty. You tap your phone to pay for your morning coffee via Kaspi QR. You take the metro using your Kaspi travel card. At lunch, you split the dining bill with four colleagues on Kaspi P2P in 3 seconds.</p>
+      <p style="margin-bottom: 12px;">In the afternoon, your salary lands directly into your Kaspi Gold account. That evening, you buy a new refrigerator on Kaspi Marketplace on a 0-0-12 plan—zero interest over 12 months, zero paperwork, approved in 5 seconds. You renew your driver's license and pay your road tax inside the exact same app.</p>
+      <blockquote style="border-left: 3px solid var(--accent-green); padding-left: 14px; font-style: italic; color: var(--text-bright);">
+        In Kazakhstan, people do not say "transfer me money"—they say "Kaspi me". Kaspi is not a bank; it is the digital operating system of an entire nation.
+      </blockquote>
+    </section>
+
+    <!-- Section 1: Sovereign Backstop -->
+    <section class="section-card">
+      <div class="section-title">
+        <span class="step-num">01</span>
+        <span>The Sovereign Backstop (The Temasek of the Steppes)</span>
+      </div>
+      <p>Western investors often dismiss Central Asia as an unstable frontier. The sovereign balance sheet reveals Kazakhstan is an over-collateralized fortress:</p>
+      <ul style="margin: 14px 0 14px 22px; color: var(--text-main);">
+        <li>The state holds <strong>USD 132.60 Billion</strong> in sovereign assets and physical gold against a domestic broad money supply (M2) of <strong>USD 99.07 Billion</strong>, representing an extraordinary <strong>133.8% hard asset coverage ratio</strong> (compared to 60% for Singapore and 75% for Switzerland).</li>
+        <li>Kazakhstan controls <strong>&gt;43% of the world's primary natural uranium supply</strong> via state giant Kazatomprom—acting as the indispensable "Nuclear OPEC" powering global clean energy and artificial intelligence data centers.</li>
+      </ul>
+      <div class="commentary-box">
+        <div class="commentary-header">Objective Commentary: Why Reserves &amp; Devaluation Exist</div>
+        <p><strong>Why is Kazakhstan so cash-rich?</strong> Having experienced severe commodity shocks in 1998 and 2014, the state legally mandates that surplus resource revenues flow directly into the National Oil Fund (NFRK), while the central bank exercises statutory pre-emption rights to purchase 100% of domestic gold mine output.</p>
+        <p style="margin-top: 8px;"><strong>Why does the Tenge devalue 4%-5% annually?</strong> This is an intentional macroeconomic stabilizer. When regional trading partners devalue, Kazakhstan allows the KZT to drift downward to prevent foreign imports from crushing local factories, while collecting USD resource taxes that convert into more local KZT for pensions. Because Kaspi charges a fixed percentage take-rate (16.1%), nominal inflation and currency drift automatically lift Kaspi's top-line revenue without incremental capital expenditure.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Monopoly Moat -->
+    <section class="section-card">
+      <div class="section-title">
+        <span class="step-num">02</span>
+        <span>The Three-Sided Monopoly Moat</span>
+      </div>
+      <p>Kaspi operates a dual-sided flywheel connecting <strong>14 million consumers</strong> to over <strong>600,000 commercial merchants</strong>. With a <strong>69% Daily Active User (DAU/MAU)</strong> engagement ratio, user retention is virtually permanent:</p>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Platform Pillar</th>
+              <th>Scale / Volume</th>
+              <th>YoY Growth</th>
+              <th>Core Economics &amp; Competitive Moat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Payments (PayNow)</strong></td>
+              <td class="mono-cell">USD 26.3B TPV</td>
+              <td class="mono-cell" style="color: var(--accent-green);">+13%</td>
+              <td>Processes &gt;90% of national QR &amp; P2P traffic; 69% daily user engagement ratio.</td>
+            </tr>
+            <tr>
+              <td><strong>2. E-Commerce (Shopee)</strong></td>
+              <td class="mono-cell">USD 4.8B GMV</td>
+              <td class="mono-cell" style="color: var(--accent-green);">+15% to +28%</td>
+              <td>16.1% Take-Rate; Kasper AI driving +33% repeat consumer buying frequency.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Fintech (0-0-12 POS)</strong></td>
+              <td class="mono-cell">USD 15.0B Loans</td>
+              <td class="mono-cell" style="color: var(--accent-green);">+18%</td>
+              <td>0-0-12 checkout loans funded by KZT 7T+ deposits; 5.4% NPL fully covered by reserves.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Turkish Spawner (Hepsi)</strong></td>
+              <td class="mono-cell">12M+ Buyers</td>
+              <td class="mono-cell" style="color: var(--accent-amber);">Turnaround</td>
+              <td>Deploying Hepsi Bank 0-0-12 micro-lending to 85 million Turkish consumers.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="commentary-box">
+        <div class="commentary-header">Objective Commentary: Merchant Loyalty &amp; Card Rails</div>
+        <p><strong>Why don't merchants rebel against a 16.1% take-rate?</strong> Because Kaspi's 0-0-12 financing increases sales volume by 3x to 5x. Merchants treat Kaspi's 16.1% cut as their combined marketing, payment processing, and credit guarantee budget. If a merchant unplugs Kaspi, foot traffic drops 70% overnight.</p>
+        <p style="margin-top: 8px;"><strong>Why can't Visa/Mastercard dislodge Kaspi?</strong> Visa charges ~2% interchange fees on legacy POS hardware, whereas Kaspi built proprietary, zero-fee direct-settlement QR rails and distributed free Smart POS devices nationwide, locking both ends of the transaction.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Floating Rate Arbitrage -->
+    <section class="section-card">
+      <div class="section-title">
+        <span class="step-num">03</span>
+        <span>The Coiled Spring: Floating Rate Arbitrage</span>
+      </div>
+      <p>Think of Kaspi as a commercial landlord whose floating mortgage rate is about to plunge while tenant rental income remains locked high.</p>
+      <div class="commentary-box">
+        <div class="commentary-header">The Rate Cycle Mechanics</div>
+        <p><strong>Why did rates reach 18.00%?</strong> The central bank hiked rates aggressively in 2022-2023 to halt currency panic and crush imported food inflation. This forced Kaspi to pay 14.50% on KZT 7.0 Trillion in retail deposits, temporarily compressing lending margins while holding 16.1% marketplace fees steady.</p>
+        <p style="margin-top: 8px;"><strong>Why is rate cut flow-through so rapid?</strong> Kazakh consumer deposits are short-duration (3-12 months). As base rates decline, Kaspi immediately lowers deposit yields upon maturity, while consumer loan yields and marketplace fees remain constant. <strong>Every 100 bps cut in deposit rates strips out ~USD 137 Million in interest expense</strong>, dropping straight into pre-tax net income.</p>
+      </div>
+    </section>
+
+    <!-- Section 4: Turkish Spawner -->
+    <section class="section-card">
+      <div class="section-title">
+        <span class="step-num">04</span>
+        <span>The Turkish Spawner (A Free Call Option on 85M People)</span>
+      </div>
+      <p>In 2025, Kaspi acquired a controlling stake in <strong>Hepsiburada</strong>, Turkey's leading e-commerce platform with 12 million active buyers. Hepsiburada posted a loss of -KZT 93 Billion in 2025 under hyperinflation. Kaspi is deploying <strong>Hepsi Bank</strong>, replacing third-party credit cards with its proprietary high-margin 0-0-12 checkout lending model.</p>
+      <div class="commentary-box">
+        <div class="commentary-header">Objective Commentary: Why the Market Assigns $0.00 Valuation</div>
+        <p>Institutional investors heavily discount Turkey due to persistent TRY currency volatility and fierce competition from Alibaba-backed Trendyol. Wall Street assumes Kaspi cannot export its closed-loop model abroad. However, because this skepticism is fully priced in at 8.4x P/E, any operational breakeven or modest profit from Hepsi Bank provides pure unpriced upside.</p>
+      </div>
+    </section>
+
+    <!-- Section 5: Valuation Disconnect -->
+    <section class="section-card">
+      <div class="section-title">
+        <span class="step-num">05</span>
+        <span>Valuation Disconnect: P/E Multiples vs. Global Peers</span>
+      </div>
+      <p>Kaspi trades at a single-digit multiple despite generating superior capital returns:</p>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>P/E Payback Multiple</th>
+              <th>Return on Equity</th>
+              <th>Cash Dividend Yield</th>
+              <th>Structural Profile</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(16, 185, 129, 0.06);">
+              <td><strong>Kaspi.kz (KSPI)</strong></td>
+              <td class="mono-cell" style="color: var(--accent-green); font-weight:700;">8.4x P/E</td>
+              <td class="mono-cell">&gt;50% ROE</td>
+              <td class="mono-cell" style="color: var(--accent-green);">8.15%</td>
+              <td>National monopoly lock, zero debt drag</td>
+            </tr>
+            <tr>
+              <td><strong>Western Banks</strong></td>
+              <td class="mono-cell">11.5x P/E</td>
+              <td class="mono-cell">11% ROE</td>
+              <td class="mono-cell">3.80%</td>
+              <td>Legacy branch overhead, commoditized credit</td>
+            </tr>
+            <tr>
+              <td><strong>Sea Ltd (SE)</strong></td>
+              <td class="mono-cell">35.0x P/E</td>
+              <td class="mono-cell">18% ROE</td>
+              <td class="mono-cell">0.00%</td>
+              <td>Hyper-competitive Southeast Asian battlefield</td>
+            </tr>
+            <tr>
+              <td><strong>MercadoLibre (MELI)</strong></td>
+              <td class="mono-cell">48.0x P/E</td>
+              <td class="mono-cell">38% ROE</td>
+              <td class="mono-cell">0.00%</td>
+              <td>Latin American e-commerce &amp; payments leader</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="commentary-box">
+        <div class="commentary-header">Three Reasons for the Structural Mispricing</div>
+        <p><strong>1. Frontier Market Stigma:</strong> Passive global indices blindly categorize Central Asia as high-risk, ignoring actual national solvency reserves.</p>
+        <p style="margin-top: 6px;"><strong>2. Bank vs. Tech Misclassification:</strong> Automated screening algorithms treat Kaspi as a traditional emerging-market credit bank (6x-8x P/E) rather than a software platform (&gt;30x P/E).</p>
+        <p style="margin-top: 6px;"><strong>3. Liquidity Float:</strong> Dual-listing dynamics and founder-insider control limit Western sell-side coverage, creating mispricing for long-term compounders.</p>
+      </div>
+    </section>
+
+    <!-- Section 6: Compounding Blueprint -->
+    <section class="section-card">
+      <div class="section-title">
+        <span class="step-num">06</span>
+        <span>The 100-Share Compounding Blueprint</span>
+      </div>
+      <p>Modeling a baseline retail allocation of 100 Kaspi ADS shares (Initial Capital: ~USD 10,095 / ~SGD 12,900):</p>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Compounding Horizon</th>
+              <th>Projected DPS</th>
+              <th>Annual Cash Payout (100 u)</th>
+              <th>Monthly Equivalent</th>
+              <th>Portfolio Value (@ 12x P/E)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Today (2026 Baseline)</strong></td>
+              <td class="mono-cell">USD 8.00</td>
+              <td class="mono-cell">USD 800.00 (~SGD 1,020)</td>
+              <td class="mono-cell">USD 66.60 / mo</td>
+              <td class="mono-cell">USD 10,095.00</td>
+            </tr>
+            <tr>
+              <td><strong>Year 3 (2029 Target)</strong></td>
+              <td class="mono-cell">USD 13.50</td>
+              <td class="mono-cell">USD 1,350.00 (~SGD 1,725)</td>
+              <td class="mono-cell">USD 112.50 / mo</td>
+              <td class="mono-cell">USD 16,200.00</td>
+            </tr>
+            <tr>
+              <td><strong>Year 5 (2031 Base)</strong></td>
+              <td class="mono-cell">USD 17.20</td>
+              <td class="mono-cell">USD 1,720.00 (~SGD 2,200)</td>
+              <td class="mono-cell">USD 143.30 / mo</td>
+              <td class="mono-cell">USD 20,640.00</td>
+            </tr>
+            <tr style="background: rgba(16, 185, 129, 0.06);">
+              <td><strong>Year 5 (2031 Bull)</strong></td>
+              <td class="mono-cell" style="color: var(--accent-green); font-weight: 700;">USD 22.97</td>
+              <td class="mono-cell" style="color: var(--accent-green);">USD 2,297.00 (~SGD 2,935)</td>
+              <td class="mono-cell">USD 191.40 / mo</td>
+              <td class="mono-cell" style="color: var(--accent-green); font-weight: 700;">USD 27,564.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 7: Risk Vectors -->
+    <section class="section-card">
+      <div class="section-title">
+        <span class="step-num">07</span>
+        <span>Risk &amp; Failure Vectors (What Can Go Wrong)</span>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Failure Vector</th>
+              <th>Risk Level</th>
+              <th>Structural Reality &amp; Downside Buffer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Turkish Execution Trap</strong></td>
+              <td><span class="risk-tag risk-moderate">Moderate</span></td>
+              <td>Hepsiburada drag continues. Buffer: Current stock price attributes $0.00 valuation to Turkey.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Regulatory Interoperability</strong></td>
+              <td><span class="risk-tag risk-low">Low-Mod</span></td>
+              <td>National QR caps merchant fees. Buffer: 0-0-12 shopping lock and consumer loyalty protect moat.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Oil Shock / KZT Devaluation</strong></td>
+              <td><span class="risk-tag risk-moderate">Moderate</span></td>
+              <td>Oil &lt;$50 drops Tenge. Buffer: 16.1% fee on nominal prices hedges revenue; USD 132.6B state reserves.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Key-Man Operational Risk</strong></td>
+              <td><span class="risk-tag risk-low">Low</span></td>
+              <td>Loss of Lomtadze/Kim. Buffer: Institutionalized management bench and deep product architecture.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 8: Executive Summary & Execution Zones -->
+    <section class="section-card">
+      <div class="section-title">
+        <span class="step-num">08</span>
+        <span>Master Actionable Target Prices &amp; Execution Zones</span>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Execution Level</th>
+              <th>Target Price</th>
+              <th>Valuation Basis</th>
+              <th>Expected Return</th>
+              <th>Actionable Strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(16, 185, 129, 0.08);">
+              <td><strong>Accumulation Buy Zone</strong></td>
+              <td class="mono-cell" style="color: var(--accent-green); font-weight:700;">USD 85.00 – USD 105.00</td>
+              <td class="mono-cell">7.0x – 8.8x P/E</td>
+              <td class="mono-cell">7.8% – 9.6% Yield</td>
+              <td><strong>Strong Buy.</strong> Primary capital entry window.</td>
+            </tr>
+            <tr>
+              <td><strong>Fair Value Pivot Zone</strong></td>
+              <td class="mono-cell">USD 115.00 – USD 135.00</td>
+              <td class="mono-cell">9.5x – 11.2x P/E</td>
+              <td class="mono-cell">+15% to +35%</td>
+              <td><strong>Hold &amp; Compound.</strong> Automatic DRIP accumulation.</td>
+            </tr>
+            <tr>
+              <td><strong>3-Year Target (2029)</strong></td>
+              <td class="mono-cell" style="color: var(--accent-blue);">USD 175.00</td>
+              <td class="mono-cell">12.0x Forward P/E</td>
+              <td class="mono-cell">+73.4% + Yield</td>
+              <td>Core interest rate cut profit expansion realized.</td>
+            </tr>
+            <tr>
+              <td><strong>5-Year Bull Target (2031)</strong></td>
+              <td class="mono-cell" style="color: var(--accent-amber); font-weight:700;">USD 240.00 – USD 275.00</td>
+              <td class="mono-cell">12.0x – 14.0x P/E</td>
+              <td class="mono-cell">+137.7% to +172.4%</td>
+              <td>Turkish Hepsiburada turnaround fully operational.</td>
+            </tr>
+            <tr>
+              <td><strong>Downside Bear Support</strong></td>
+              <td class="mono-cell" style="color: var(--accent-red);">USD 72.00 – USD 78.00</td>
+              <td class="mono-cell">6.0x P/E Floor</td>
+              <td class="mono-cell">~11.0% Yield</td>
+              <td>High sovereign asset buffer, corporate buyback backstop.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Terminal Footer -->
+    <div class="footer-note">
+      CONFIDENTIAL EQUITY RESEARCH MEMORANDUM // FOR ASSET ALLOCATION &amp; COMPOUNDING ONLY // NASDAQ: KSPI
+    </div>
+
+  </div>
+</body>
+</html>
